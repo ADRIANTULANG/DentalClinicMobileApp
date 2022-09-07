@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "929666304187",
+    "project_id": "dcams-bc29a",
+    "storage_bucket": "dcams-bc29a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929666304187:android:c2eefd71fc66ff7124419e",
+        "android_client_info": {
+          "package_name": "com.example.dcams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929666304187-hctejq8mb660hj24b3ai41ok5m2ns7oa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dcams",
+            "certificate_hash": "a4c5240b6ef7a55f54058e65accd542bc534fc12"
+          }
+        },
+        {
+          "client_id": "929666304187-rccjv7nf35k30udrag26t810a3a9kn4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSEJRJ_K7lfdUuTRaa04AHuWDBqo8DJVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929666304187-rccjv7nf35k30udrag26t810a3a9kn4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
