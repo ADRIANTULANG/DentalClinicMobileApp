@@ -55,24 +55,6 @@ class LoginController extends GetxController {
       } else {
         var clinicDetails =
             await LoginApi.getClinicDetails(clinicID: userData[0].userId);
-        await Get.find<StorageServices>().saveClinicDetails(
-          clinicId: clinicDetails[0].clinicId,
-          clinicName: clinicDetails[0].clinicName,
-          clinicUsername: clinicDetails[0].clinicUsername,
-          clinicPassword: clinicDetails[0].clinicPassword,
-          clinicAddress: clinicDetails[0].clinicAddress,
-          clinicLat: clinicDetails[0].clinicLat,
-          clinicLong: clinicDetails[0].clinicLong,
-          clinicImage: clinicDetails[0].clinicImage,
-          clinicDentistName: clinicDetails[0].clinicDentistName,
-          clinicEmail: clinicDetails[0].clinicEmail,
-          clinicContactNo: clinicDetails[0].clinicContactNo,
-          clinicStatus: clinicDetails[0].clinicStatus,
-          subscriptionStatus: clinicDetails[0].subscriptionStatus,
-        );
-        await LoginApi.updateClinicFCMtoken(
-            clinicID: clinicDetails[0].clinicId,
-            fcmToken: Get.find<NotificationServices>().token!.toString());
         if (clinicDetails[0].clinicStatus == "Pending") {
           Get.snackbar(
               "Message", "Your Account is still for Approval. Thank you!",
@@ -80,7 +62,34 @@ class LoginController extends GetxController {
               backgroundColor: AppColor.mainColors,
               snackPosition: SnackPosition.BOTTOM,
               duration: Duration(seconds: 15));
+          await Get.find<StorageServices>().removeStorageCredentials();
+        } else if (clinicDetails[0].clinicStatus == "Denied") {
+          Get.snackbar(
+              "Message", "Sorry.. This Account was 'Denied' by the Management.",
+              colorText: Colors.white,
+              backgroundColor: AppColor.mainColors,
+              snackPosition: SnackPosition.BOTTOM,
+              duration: Duration(seconds: 15));
+          await Get.find<StorageServices>().removeStorageCredentials();
         } else {
+          await Get.find<StorageServices>().saveClinicDetails(
+            clinicId: clinicDetails[0].clinicId,
+            clinicName: clinicDetails[0].clinicName,
+            clinicUsername: clinicDetails[0].clinicUsername,
+            clinicPassword: clinicDetails[0].clinicPassword,
+            clinicAddress: clinicDetails[0].clinicAddress,
+            clinicLat: clinicDetails[0].clinicLat,
+            clinicLong: clinicDetails[0].clinicLong,
+            clinicImage: clinicDetails[0].clinicImage,
+            clinicDentistName: clinicDetails[0].clinicDentistName,
+            clinicEmail: clinicDetails[0].clinicEmail,
+            clinicContactNo: clinicDetails[0].clinicContactNo,
+            clinicStatus: clinicDetails[0].clinicStatus,
+            subscriptionStatus: clinicDetails[0].subscriptionStatus,
+          );
+          await LoginApi.updateClinicFCMtoken(
+              clinicID: clinicDetails[0].clinicId,
+              fcmToken: Get.find<NotificationServices>().token!.toString());
           Get.offAll(() => DentalClinicHomeScreenView());
         }
       }

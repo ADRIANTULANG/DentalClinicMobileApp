@@ -8,6 +8,7 @@ class ClinicServicesController extends GetxController {
   RxString clinicName = "".obs;
   RxString clinicContactNo = "".obs;
   RxString clinicDentist = "".obs;
+  RxString clinicEmail = "".obs;
   RxList<ClinicServicesModel> servicesList = <ClinicServicesModel>[].obs;
   RxBool isLoading = true.obs;
   @override
@@ -16,6 +17,7 @@ class ClinicServicesController extends GetxController {
     clinicName.value = await Get.arguments['clinicName'];
     clinicContactNo.value = await Get.arguments['clinicContactNo'];
     clinicDentist.value = await Get.arguments['clinicDentist'];
+    clinicEmail.value = await Get.arguments['clinicEmail'];
     print(clinicID.value);
     await getClinicServices(clinicID: clinicID.value);
     isLoading(false);

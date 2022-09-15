@@ -61,6 +61,12 @@ dependencies:
   flutter_spinkit: ^5.1.0
   #flutter launcher icons - edit launcher icons
   flutter_launcher_icons: ^0.10.0
+  #rating bar
+  flutter_rating_bar: ^4.0.1
+  #carousel_slider
+  carousel_slider: ^4.0.0
+  #intl
+  intl: ^0.17.0
 
 flutter_icons:
   android: true

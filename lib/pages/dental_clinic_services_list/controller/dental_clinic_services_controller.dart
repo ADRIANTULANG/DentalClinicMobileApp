@@ -12,6 +12,10 @@ class DentalClinicServicesListController extends GetxController {
   TextEditingController servicesName = TextEditingController();
   TextEditingController servicesPrice = TextEditingController();
   TextEditingController servicesDescription = TextEditingController();
+
+  TextEditingController update_servicesName = TextEditingController();
+  TextEditingController update_servicesPrice = TextEditingController();
+  TextEditingController update_servicesDescription = TextEditingController();
   @override
   void onInit() async {
     await getDentalClinicServices();
@@ -64,6 +68,56 @@ class DentalClinicServicesListController extends GetxController {
           snackPosition: SnackPosition.TOP,
         );
       }
+    }
+  }
+
+  updateServices({required String servicesID}) async {
+    bool isSuccess = await DentalClinicServicessApi.updateClinicServices(
+        servicesID: servicesID,
+        services_name: update_servicesName.text,
+        services_price: update_servicesPrice.text,
+        services_description: update_servicesDescription.text);
+    if (isSuccess == true) {
+      Get.snackbar(
+        "Message",
+        "Service Succesfully Updated",
+        colorText: Colors.white,
+        backgroundColor: AppColor.mainColors,
+        snackPosition: SnackPosition.TOP,
+      );
+      getDentalClinicServices();
+    } else {
+      Get.snackbar(
+        "Message",
+        "Sorry.. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  deleteService({required String servicesID}) async {
+    bool isSuccess = await DentalClinicServicessApi.deleteClinicServices(
+      servicesID: servicesID,
+    );
+    if (isSuccess == true) {
+      Get.snackbar(
+        "Message",
+        "Service Succesfully Deleted",
+        colorText: Colors.white,
+        backgroundColor: AppColor.mainColors,
+        snackPosition: SnackPosition.TOP,
+      );
+      getDentalClinicServices();
+    } else {
+      Get.snackbar(
+        "Message",
+        "Sorry.. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 }

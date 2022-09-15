@@ -16,6 +16,7 @@ class ClientAppointmentModel {
     required this.resFee,
     required this.resTotalAmount,
     required this.resSchedule,
+    required this.resScheduleTime,
     required this.resPaymentGateway,
     required this.resClientId,
     required this.resStatus,
@@ -34,6 +35,7 @@ class ClientAppointmentModel {
   String resFee;
   String resTotalAmount;
   DateTime resSchedule;
+  String resScheduleTime;
   String resPaymentGateway;
   String resClientId;
   String resStatus;
@@ -53,6 +55,7 @@ class ClientAppointmentModel {
         resFee: json["res_fee"],
         resTotalAmount: json["res_total_amount"],
         resSchedule: DateTime.parse(json["res_schedule"]),
+        resScheduleTime: json["res_schedule_time"],
         resPaymentGateway: json["res_payment_gateway"],
         resClientId: json["res_client_id"],
         resStatus: json["res_status"],
@@ -72,6 +75,7 @@ class ClientAppointmentModel {
         "res_fee": resFee,
         "res_total_amount": resTotalAmount,
         "res_schedule": resSchedule.toIso8601String(),
+        "res_schedule_time": resScheduleTime,
         "res_payment_gateway": resPaymentGateway,
         "res_client_id": resClientId,
         "res_status": resStatus,

@@ -115,4 +115,111 @@ class DentalClinicServicessApi {
       return false;
     }
   }
+
+  static Future<bool> updateClinicServices({
+    required String servicesID,
+    required String services_name,
+    required String services_price,
+    required String services_description,
+  }) async {
+    try {
+      var response = await client.post(
+        Uri.parse(
+            '${AppEndpoint.endPointDomain}/update-clinic-services-details.php'),
+        body: {
+          "services_clinic_id":
+              Get.find<StorageServices>().storage.read('clinicId').toString(),
+          "services_price": services_price,
+          "services_name": services_name,
+          "services_description": services_description,
+          "services_id": servicesID,
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        return true;
+      } else {
+        return false;
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Update Services Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Update Services Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Update Services Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    }
+  }
+
+  static Future<bool> deleteClinicServices({
+    required String servicesID,
+  }) async {
+    try {
+      var response = await client.post(
+        Uri.parse('${AppEndpoint.endPointDomain}/delete-clinic-services.php'),
+        body: {
+          "services_clinic_id":
+              Get.find<StorageServices>().storage.read('clinicId').toString(),
+          "services_id": servicesID,
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        return true;
+      } else {
+        return false;
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Delete Services Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Delete Services Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Delete Services Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    }
+  }
 }

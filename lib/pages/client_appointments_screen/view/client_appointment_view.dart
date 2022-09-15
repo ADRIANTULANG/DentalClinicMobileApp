@@ -1,6 +1,7 @@
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constant/color_class.dart';
@@ -164,6 +165,51 @@ class ClientAppointmentView extends GetView<ClientAppointmentController> {
                                           Row(
                                             children: [
                                               Text(
+                                                "Schedule Date: ",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 12.sp,
+                                                    letterSpacing: 2),
+                                              ),
+                                              Text(
+                                                DateFormat.yMMMMd().format(
+                                                    controller
+                                                        .appointmentList[index]
+                                                        .resSchedule),
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 12.sp,
+                                                    letterSpacing: 1),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "Schedule Time: ",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 12.sp,
+                                                    letterSpacing: 2),
+                                              ),
+                                              Text(
+                                                controller
+                                                    .appointmentList[index]
+                                                    .resScheduleTime,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 12.sp,
+                                                    letterSpacing: 1),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
                                                 "Clinic: ",
                                                 style: TextStyle(
                                                     fontWeight:
@@ -186,7 +232,7 @@ class ClientAppointmentView extends GetView<ClientAppointmentController> {
                                           Row(
                                             children: [
                                               Text(
-                                                "Clinic: ",
+                                                "Dentist: ",
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.normal,

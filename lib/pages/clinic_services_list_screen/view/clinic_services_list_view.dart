@@ -36,18 +36,64 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                   Obx(
                     () => controller.servicesList.length == 0
                         ? SizedBox()
-                        : Container(
-                            padding: EdgeInsets.only(left: 3.w, right: 3.w),
-                            width: 100.w,
-                            child: Obx(
-                              () => Text(
-                                controller.clinicName.value,
-                                style: TextStyle(
-                                    fontSize: 20.sp,
-                                    letterSpacing: 1,
-                                    fontWeight: FontWeight.w500),
+                        : Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 3.w, right: 3.w),
+                                width: 100.w,
+                                child: Obx(
+                                  () => Text(
+                                    controller.clinicName.value,
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
                               ),
-                            ),
+                              Container(
+                                padding: EdgeInsets.only(left: 3.w, right: 3.w),
+                                width: 100.w,
+                                child: Obx(
+                                  () => Text(
+                                    controller.clinicDentist.value,
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.w200),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 3.w, right: 3.w),
+                                width: 100.w,
+                                child: Obx(
+                                  () => Text(
+                                    controller.clinicEmail.value,
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.w200),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 3.w, right: 3.w),
+                                width: 100.w,
+                                child: Obx(
+                                  () => Text(
+                                    controller.clinicContactNo.value,
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.w200),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              )
+                            ],
                           ),
                   ),
                   Obx(
@@ -59,15 +105,12 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                             child: Text(
                               "Available Services",
                               style: TextStyle(
-                                  fontSize: 13.sp,
+                                  fontSize: 15.sp,
                                   letterSpacing: 1,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.normal),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w200),
                             ),
                           ),
-                  ),
-                  SizedBox(
-                    height: 2.h,
                   ),
                   Expanded(
                     child: Container(
@@ -89,10 +132,7 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
                                     padding: EdgeInsets.only(
-                                        top: 2.h,
-                                        bottom: 2.h,
-                                        left: 3.w,
-                                        right: 3.w),
+                                        top: 1.h, left: 3.w, right: 3.w),
                                     child: InkWell(
                                       onTap: () {
                                         Get.to(
@@ -118,22 +158,18 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                                             });
                                       },
                                       child: Container(
-                                        height: 25.h,
-                                        width: 100.w,
+                                        padding: EdgeInsets.only(
+                                            top: 2.h,
+                                            bottom: 2.h,
+                                            left: 3.w,
+                                            right: 3.w),
                                         decoration: BoxDecoration(
-                                            color: Color.fromARGB(
-                                                255, 227, 234, 241),
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  blurRadius: 4,
-                                                  spreadRadius: 1,
-                                                  color: Colors.grey),
-                                            ]),
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                color: Colors.black)),
                                         child: Container(
-                                          padding: EdgeInsets.only(
-                                              top: 2.h, left: 3.w, right: 3.w),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -142,10 +178,10 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                                                 controller.servicesList[index]
                                                     .servicesName,
                                                 style: TextStyle(
-                                                    fontSize: 18.sp,
-                                                    letterSpacing: 1,
+                                                    fontSize: 13.sp,
+                                                    letterSpacing: 1.5,
                                                     fontWeight:
-                                                        FontWeight.w600),
+                                                        FontWeight.w300),
                                               ),
                                               Text(
                                                 "P " +
@@ -153,32 +189,24 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                                                         .servicesList[index]
                                                         .servicesPrice,
                                                 style: TextStyle(
-                                                    fontSize: 13.sp,
+                                                    fontSize: 10.sp,
                                                     color: Colors.red,
                                                     letterSpacing: 1,
                                                     fontWeight:
-                                                        FontWeight.w400),
+                                                        FontWeight.w200),
                                               ),
                                               SizedBox(
                                                 height: 2.h,
                                               ),
-                                              Expanded(
-                                                child: Container(
-                                                  child: Text(
-                                                    controller
-                                                        .servicesList[index]
-                                                        .servicesDescription,
-                                                    maxLines: 6,
-                                                    style: TextStyle(
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        fontSize: 12.sp,
-                                                        color: Colors.grey,
-                                                        letterSpacing: 1,
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
-                                                ),
+                                              Text(
+                                                controller.servicesList[index]
+                                                    .servicesDescription,
+                                                style: TextStyle(
+                                                    fontSize: 11.sp,
+                                                    color: Colors.black,
+                                                    letterSpacing: 1.5,
+                                                    fontWeight:
+                                                        FontWeight.w200),
                                               )
                                             ],
                                           ),

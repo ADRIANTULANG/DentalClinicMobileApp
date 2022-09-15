@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../controller/dental_clinic_home_screen_controller.dart';
@@ -33,7 +34,7 @@ class ApprovedTab extends GetView<DentalClinicHomeScreenController> {
                         padding:
                             EdgeInsets.only(bottom: 2.h, left: 2.w, right: 2.w),
                         child: Container(
-                          height: 20.h,
+                          height: 22.h,
                           width: 100.w,
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 229, 239, 243),
@@ -50,7 +51,7 @@ class ApprovedTab extends GetView<DentalClinicHomeScreenController> {
                           child: Row(
                             children: [
                               Container(
-                                height: 18.h,
+                                height: 20.h,
                                 padding: EdgeInsets.only(left: 2.w, top: 2.w),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,6 +80,56 @@ class ApprovedTab extends GetView<DentalClinicHomeScreenController> {
                                         Text(
                                           controller
                                               .approvedList[index].clientName,
+                                          style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 1.5,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: .5.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Date: ",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 1.5,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          DateFormat.yMMMMd().format(controller
+                                              .approvedList[index].resSchedule),
+                                          style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 1.5,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: .5.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Date: ",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 1.5,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          controller.approvedList[index]
+                                              .resScheduleTime,
                                           style: TextStyle(
                                               overflow: TextOverflow.ellipsis,
                                               color: Colors.grey,

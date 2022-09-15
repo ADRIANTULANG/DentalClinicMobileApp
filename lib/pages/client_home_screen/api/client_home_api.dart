@@ -13,13 +13,15 @@ import '../model/client_home_model.dart';
 class ClientHomeApi {
   static var client = http.Client();
 //
-  static Future<List<ClientHomeModel>> getClinicNearest() async {
+  static Future<List<ClientHomeModel>> getClinicNearest(
+      {required String distanceInKilometers}) async {
     try {
       var response = await client.post(
         Uri.parse('${AppEndpoint.endPointDomain}/get-clinic-with-distance.php'),
         body: {
           "lat": Get.find<LocationServices>().user_latitude.toString(),
           "long": Get.find<LocationServices>().user_longitude.toString(),
+          "distance": distanceInKilometers.toString()
         },
       );
 

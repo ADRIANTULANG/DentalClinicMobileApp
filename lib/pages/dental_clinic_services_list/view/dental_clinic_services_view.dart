@@ -142,6 +142,74 @@ class DentalClinicServicesListView
                                                 ),
                                               ],
                                             ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Container(
+                                              child: Row(
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {
+                                                      DentalClinicServicesListDialog
+                                                          .showDeleteDialogs(
+                                                              controller:
+                                                                  controller,
+                                                              servicesID: controller
+                                                                  .servicesList[
+                                                                      index]
+                                                                  .servicesId);
+                                                    },
+                                                    child: Icon(
+                                                      Icons.delete_forever,
+                                                      size: 20.sp,
+                                                      color: Colors.redAccent,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5.w,
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      controller
+                                                              .update_servicesName
+                                                              .text =
+                                                          controller
+                                                              .servicesList[
+                                                                  index]
+                                                              .servicesName;
+                                                      controller
+                                                              .update_servicesPrice
+                                                              .text =
+                                                          controller
+                                                              .servicesList[
+                                                                  index]
+                                                              .servicesPrice;
+                                                      controller
+                                                              .update_servicesDescription
+                                                              .text =
+                                                          controller
+                                                              .servicesList[
+                                                                  index]
+                                                              .servicesDescription;
+                                                      DentalClinicServicesListDialog
+                                                          .showDialogUpdateServices(
+                                                              controller:
+                                                                  controller,
+                                                              servicesID: controller
+                                                                  .servicesList[
+                                                                      index]
+                                                                  .servicesId);
+                                                    },
+                                                    child: Icon(
+                                                      Icons.mode_edit_outlined,
+                                                      size: 20.sp,
+                                                      color: Colors
+                                                          .lightGreenAccent,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),

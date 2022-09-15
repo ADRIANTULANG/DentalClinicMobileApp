@@ -22,6 +22,7 @@ class ClientHomeModel {
     required this.clinicEmail,
     required this.clinicContactNo,
     required this.clinicStatus,
+    required this.clinicRating,
   });
 
   String distance;
@@ -37,6 +38,7 @@ class ClientHomeModel {
   String clinicEmail;
   String clinicContactNo;
   String clinicStatus;
+  String clinicRating;
 
   factory ClientHomeModel.fromJson(Map<String, dynamic> json) =>
       ClientHomeModel(
@@ -53,6 +55,7 @@ class ClientHomeModel {
         clinicEmail: json["clinic_email"],
         clinicContactNo: json["clinic_contact_no"],
         clinicStatus: json["clinic_status"],
+        clinicRating: json["clinic_rating"] ?? "0",
       );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class ClientHomeModel {
         "clinic_email": clinicEmail,
         "clinic_contact_no": clinicContactNo,
         "clinic_status": clinicStatus,
+        "clinic_rating": clinicRating,
       };
 }

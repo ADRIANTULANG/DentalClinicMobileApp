@@ -11,7 +11,11 @@ class DentalClinicSubscriptionsApi {
   static var client = http.Client();
 //
 
-  static Future updateClinicSubscription() async {
+  static Future updateClinicSubscription({
+    required String amount,
+    required String sub_expiration_date,
+    required String sub_purchased_date,
+  }) async {
     try {
       var response = await client.post(
         Uri.parse(
@@ -19,6 +23,9 @@ class DentalClinicSubscriptionsApi {
         body: {
           "clinicID":
               Get.find<StorageServices>().storage.read('clinicId').toString(),
+          "sub_expiration_date": sub_expiration_date.toString(),
+          "sub_purchased_date": sub_purchased_date.toString(),
+          "amount": amount.toString(),
         },
       );
 

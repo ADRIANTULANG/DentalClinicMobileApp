@@ -68,7 +68,7 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                               ),
                             ),
                             SizedBox(
-                              width: 5.w,
+                              width: 2.w,
                             ),
                             InkWell(
                               onTap: () {
@@ -87,6 +87,36 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                                     ]),
                                 child: Text(
                                   "Appointments",
+                                  style: TextStyle(
+                                    letterSpacing: 1.5,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                ClientHomeScreenDialog
+                                    .showDialogListOfKilometers(
+                                        controller: controller);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(1.w),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 227, 234, 241),
+                                    borderRadius: BorderRadius.circular(3),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 1,
+                                          color: Colors.grey),
+                                    ]),
+                                child: Text(
+                                  " ${controller.isSelectedDistance.value.toString()}Km ",
                                   style: TextStyle(
                                     letterSpacing: 1.5,
                                     fontSize: 12.sp,
@@ -222,180 +252,253 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                       Expanded(
                           child: Container(
                         child: Obx(
-                          () => ListView.builder(
-                            padding: EdgeInsets.all(0),
-                            itemCount: controller.nearestClinic.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    top: 1.h,
-                                    bottom: 2.h,
-                                    left: 1.w,
-                                    right: 1.w),
-                                child: InkWell(
-                                  onTap: () {
-                                    Get.to(() => ClinicGoogleMapsDetailsView(),
-                                        arguments: {
-                                          'clientHomeModel':
-                                              controller.nearestClinic[index]
-                                        });
-                                  },
-                                  child: Container(
-                                    height: 18.h,
-                                    width: 100.w,
-                                    padding: EdgeInsets.only(
-                                        top: 2.w,
-                                        bottom: 2.w,
-                                        left: 2.w,
-                                        right: 2.w),
-                                    decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 227, 234, 241),
-                                        borderRadius: BorderRadius.circular(8),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              blurRadius: 4,
-                                              spreadRadius: 1,
-                                              color: Colors.grey),
-                                        ]),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          height: 16.h,
-                                          width: 38.w,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                      "${AppEndpoint.endPointDomain_image}/${controller.nearestClinic[index].clinicImage}"))),
-                                        ),
-                                        SizedBox(
-                                          width: 1.w,
-                                        ),
-                                        Expanded(
-                                            child: Container(
-                                          // color: Colors.red,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                controller.nearestClinic[index]
-                                                    .clinicName,
-                                                style: TextStyle(
-                                                    fontSize: 13.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                    letterSpacing: 1.5),
-                                              ),
-                                              SizedBox(
-                                                height: 1.h,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.person,
-                                                    size: 14.sp,
+                          () =>
+                              controller.nearestClinic.length == 0 &&
+                                      controller.isGettingClinics.value == false
+                                  ? Center(
+                                      child: Text(
+                                        "Sorry.. No Available Clinics",
+                                        style: TextStyle(
+                                            letterSpacing: 1.5,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15.sp),
+                                      ),
+                                    )
+                                  : Obx(
+                                      () =>
+                                          controller.isGettingClinics.value ==
+                                                  true
+                                              ? Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                )
+                                              : Obx(
+                                                  () => ListView.builder(
+                                                    padding: EdgeInsets.all(0),
+                                                    itemCount: controller
+                                                        .nearestClinic.length,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      return Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 1.h,
+                                                                bottom: 2.h,
+                                                                left: 1.w,
+                                                                right: 1.w),
+                                                        child: InkWell(
+                                                          onTap: () {
+                                                            Get.to(
+                                                                () =>
+                                                                    ClinicGoogleMapsDetailsView(),
+                                                                arguments: {
+                                                                  'clientHomeModel':
+                                                                      controller
+                                                                              .nearestClinic[
+                                                                          index]
+                                                                });
+                                                          },
+                                                          child: Container(
+                                                            height: 18.h,
+                                                            width: 100.w,
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 2.w,
+                                                                    bottom: 2.w,
+                                                                    left: 2.w,
+                                                                    right: 2.w),
+                                                            decoration: BoxDecoration(
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        227,
+                                                                        234,
+                                                                        241),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      blurRadius:
+                                                                          4,
+                                                                      spreadRadius:
+                                                                          1,
+                                                                      color: Colors
+                                                                          .grey),
+                                                                ]),
+                                                            child: Row(
+                                                              children: [
+                                                                Stack(
+                                                                  alignment:
+                                                                      AlignmentDirectional
+                                                                          .topStart,
+                                                                  children: [
+                                                                    Container(
+                                                                      height:
+                                                                          16.h,
+                                                                      width:
+                                                                          38.w,
+                                                                      decoration: BoxDecoration(
+                                                                          border: Border.all(
+                                                                              color: Colors
+                                                                                  .grey),
+                                                                          image: DecorationImage(
+                                                                              fit: BoxFit.cover,
+                                                                              image: NetworkImage("${AppEndpoint.endPointDomain_image}/${controller.nearestClinic[index].clinicImage}"))),
+                                                                    ),
+                                                                    Positioned(
+                                                                        top: .5
+                                                                            .h,
+                                                                        left:
+                                                                            1.w,
+                                                                        child:
+                                                                            Container(
+                                                                          padding: EdgeInsets.only(
+                                                                              left: 1.w,
+                                                                              right: 1.w,
+                                                                              top: .5.h,
+                                                                              bottom: .5.h),
+                                                                          child:
+                                                                              Row(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.center,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              Text(
+                                                                                controller.nearestClinic[index].clinicRating,
+                                                                                style: TextStyle(letterSpacing: 1.5, fontWeight: FontWeight.w600, fontSize: 9.sp),
+                                                                              ),
+                                                                              Icon(
+                                                                                Icons.star,
+                                                                                size: 15.sp,
+                                                                                color: Colors.yellowAccent,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ))
+                                                                  ],
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 1.w,
+                                                                ),
+                                                                Expanded(
+                                                                    child:
+                                                                        Container(
+                                                                  // color: Colors.red,
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Text(
+                                                                        controller
+                                                                            .nearestClinic[index]
+                                                                            .clinicName,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                13.sp,
+                                                                            fontWeight: FontWeight.w500,
+                                                                            letterSpacing: 1.5),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            1.h,
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.person,
+                                                                            size:
+                                                                                14.sp,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                1.w,
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                Text(
+                                                                              controller.nearestClinic[index].clinicDentistName,
+                                                                              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 10.sp, fontWeight: FontWeight.w500, letterSpacing: .5),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.commute,
+                                                                            size:
+                                                                                15.sp,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                .5.w,
+                                                                          ),
+                                                                          Text(
+                                                                            "${double.parse(controller.nearestClinic[index].distance).toStringAsFixed(2).toString()} Kilometers",
+                                                                            style: TextStyle(
+                                                                                fontSize: 10.sp,
+                                                                                fontWeight: FontWeight.w300,
+                                                                                letterSpacing: .5),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.email,
+                                                                            size:
+                                                                                12.sp,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                1.8.w,
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                Text(
+                                                                              controller.nearestClinic[index].clinicEmail,
+                                                                              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 10.sp, fontWeight: FontWeight.w300, letterSpacing: .5),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.phone,
+                                                                            size:
+                                                                                12.sp,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                1.8.w,
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                Text(
+                                                                              controller.nearestClinic[index].clinicContactNo,
+                                                                              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 10.sp, fontWeight: FontWeight.w300, letterSpacing: .5),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ))
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
-                                                  SizedBox(
-                                                    width: 1.w,
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      controller
-                                                          .nearestClinic[index]
-                                                          .clinicDentistName,
-                                                      style: TextStyle(
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          letterSpacing: .5),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.commute,
-                                                    size: 15.sp,
-                                                  ),
-                                                  SizedBox(
-                                                    width: .5.w,
-                                                  ),
-                                                  Text(
-                                                    "${double.parse(controller.nearestClinic[index].distance).toStringAsFixed(2).toString()} Kilometers",
-                                                    style: TextStyle(
-                                                        fontSize: 10.sp,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        letterSpacing: .5),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.email,
-                                                    size: 12.sp,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 1.8.w,
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      controller
-                                                          .nearestClinic[index]
-                                                          .clinicEmail,
-                                                      style: TextStyle(
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                          letterSpacing: .5),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.phone,
-                                                    size: 12.sp,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 1.8.w,
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      controller
-                                                          .nearestClinic[index]
-                                                          .clinicContactNo,
-                                                      style: TextStyle(
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                          letterSpacing: .5),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ))
-                                      ],
+                                                ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
                         ),
                       ))
                     ],

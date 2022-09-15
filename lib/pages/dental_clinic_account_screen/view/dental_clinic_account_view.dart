@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../dental_clinic_home_screen/controller/dental_clinic_home_screen_controller.dart';
 import '../controller/dental_clinic_account_controller.dart';
 
 class DentalClinicAccountView extends GetView<DentalClinicAccountController> {
@@ -27,6 +28,18 @@ class DentalClinicAccountView extends GetView<DentalClinicAccountController> {
               style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 20.sp,
+                  letterSpacing: 2),
+            ),
+            SizedBox(
+              height: .5.h,
+            ),
+
+            Text(
+              Get.find<DentalClinicHomeScreenController>().expirationDate.value,
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 9.sp,
+                  color: Colors.grey,
                   letterSpacing: 2),
             ),
             SizedBox(

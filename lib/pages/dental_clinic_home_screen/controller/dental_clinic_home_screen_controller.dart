@@ -3,7 +3,7 @@ import 'package:dcams/pages/dental_clinic_home_screen/dialogs/dental_clinic_home
 import 'package:dcams/services/storage_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import '../api/dental_clinic_home_api.dart';
 import '../model/dental_clinic_model.dart';
 
@@ -23,6 +23,10 @@ class DentalClinicHomeScreenController extends GetxController {
   RxList<DentalClinicAppointmentsModle> approvedList =
       <DentalClinicAppointmentsModle>[].obs;
 
+  bool isAlreadyRemind = false;
+
+  RxString expirationDate = "".obs;
+
   TextEditingController remarks = TextEditingController();
   @override
   void onInit() async {
@@ -30,13 +34,8 @@ class DentalClinicHomeScreenController extends GetxController {
     await getClinicAppointments();
 
     isLoading(false);
-    if (Get.find<StorageServices>()
-            .storage
-            .read('subscriptionStatus')
-            .toString() ==
-        "Unpaid") {
-      DentalClinicHomeScreenDialogs.showReminder();
-    }
+    await getSubscriptionStatus();
+    await getSubscriptionDates();
 
     super.onInit();
   }
@@ -44,13 +43,6 @@ class DentalClinicHomeScreenController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-  }
-
-  setSubscription() {
-    subscriptionStatus.value = Get.find<StorageServices>()
-        .storage
-        .read('subscriptionStatus')
-        .toString();
   }
 
   setDetails() async {
@@ -76,6 +68,11 @@ class DentalClinicHomeScreenController extends GetxController {
         .storage
         .read("clinicAddress")
         .toString();
+  }
+
+  refreshDate() async {
+    getClinicAppointments();
+    print("Refresh");
   }
 
   getClinicAppointments() async {
@@ -136,6 +133,58 @@ class DentalClinicHomeScreenController extends GetxController {
         backgroundColor: Colors.red,
         snackPosition: SnackPosition.BOTTOM,
       );
+    }
+  }
+
+  getSubscriptionStatus() async {
+    var result = await DentalClinicAppointmentsApi.getSubscritpionStatus();
+    if (result == "Unpaid") {
+      expirationDate.value = "Account Inactive";
+      isAlreadyRemind = true;
+      subscriptionStatus.value = "Unpaid";
+      DentalClinicHomeScreenDialogs.showReminder();
+    } else if (result == false) {
+    } else {}
+  }
+
+  getSubscriptionDates() async {
+    List<ClinicSubscriptionDates> result =
+        await DentalClinicAppointmentsApi.getClinicSubscriptionDates();
+    if (result.isEmpty) {
+      expirationDate.value = "Account Inactive";
+    } else {
+      bool isExpired = result[0].subsExpirationDate.isBefore(DateTime.now());
+      if (subscriptionStatus.value == "Unpaid") {
+        expirationDate.value = "Account Inactive";
+      } else {
+        expirationDate.value = "Account Expiration Date: " +
+            DateFormat.yMMMMd().format(result[0].subsExpirationDate);
+      }
+      if (isExpired == true) {
+        await DentalClinicAppointmentsApi.updateClinicStatusToExpired();
+        subscriptionStatus.value = "Unpaid";
+        if (isAlreadyRemind == false) {
+          expirationDate.value = "Account Inactive";
+          Get.snackbar("Message",
+              "Subscription Expired. Please subscribe again to activate your account. Thank you!",
+              colorText: Colors.white,
+              backgroundColor: AppColor.mainColors,
+              snackPosition: SnackPosition.TOP,
+              duration: Duration(seconds: 4));
+        }
+      } else {}
+      // if(isExpired)
+    }
+  }
+
+  testFunction() {
+    DateTime expirationDate = DateTime(2022, 10, 9);
+    bool isExpired = expirationDate.isBefore(DateTime.now());
+    print(isExpired);
+    if (isExpired == true) {
+      print("expired");
+    } else {
+      print("not expired");
     }
   }
 }

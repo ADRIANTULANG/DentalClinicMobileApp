@@ -20,6 +20,7 @@ class ClinicBookingTransactionApi {
     required String res_schedule,
     required String res_payment_gateway,
     required String res_client_id,
+    required String res_schedule_time,
   }) async {
     try {
       var response = await client.post(
@@ -33,6 +34,7 @@ class ClinicBookingTransactionApi {
           "res_schedule": res_schedule.toString(),
           "res_payment_gateway": res_payment_gateway.toString(),
           "res_client_id": res_client_id.trim().toString(),
+          "res_schedule_time": res_schedule_time.toString(),
         },
       );
 

@@ -149,7 +149,7 @@ class DentalClinicHomeScreenDialogs {
               height: 2.h,
             ),
             Text(
-              "In order to 'Activate' your Dental Clinic Account.",
+              "Your dental account is currently inactive.",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.w400,

@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 import '../../../constant/color_class.dart';
 // import '../../../services/location_services.dart';
 import '../../../services/location_services.dart';
+import '../../clinic_rating_screen/view/clinic_rating_view.dart';
 import '../../clinic_services_list_screen/view/clinic_services_list_view.dart';
 import '../controller/clinic_googlemaps_details_controller.dart';
 
@@ -94,16 +95,66 @@ class ClinicGoogleMapsDetailsView
                                         EdgeInsets.only(left: 3.w, right: 2.w),
                                     child: Row(
                                       children: [
-                                        Container(
-                                          height: 22.h,
-                                          width: 40.w,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                      "${AppEndpoint.endPointDomain_image}/${controller.clientHomeModel!.clinicImage}"))),
+                                        Stack(
+                                          alignment:
+                                              AlignmentDirectional.topStart,
+                                          children: [
+                                            Container(
+                                              height: 22.h,
+                                              width: 40.w,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                          "${AppEndpoint.endPointDomain_image}/${controller.clientHomeModel!.clinicImage}"))),
+                                            ),
+                                            Positioned(
+                                                top: .5.h,
+                                                left: 1.w,
+                                                child: Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 1.w,
+                                                      right: 1.w,
+                                                      top: .5.h,
+                                                      bottom: .5.h),
+                                                  // color: Colors.red,
+                                                  // decoration: BoxDecoration(
+                                                  //     borderRadius:
+                                                  //         BorderRadius
+                                                  //             .circular(
+                                                  //                 2),
+                                                  //     color:
+                                                  //         Colors.white),
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        controller
+                                                            .clientHomeModel!
+                                                            .clinicRating,
+                                                        style: TextStyle(
+                                                            letterSpacing: 1.5,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 14.sp),
+                                                      ),
+                                                      Icon(
+                                                        Icons.star_rounded,
+                                                        size: 17.sp,
+                                                        color:
+                                                            Colors.yellowAccent,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ))
+                                          ],
                                         ),
                                         Expanded(
                                           child: Container(
@@ -189,58 +240,125 @@ class ClinicGoogleMapsDetailsView
                                                   SizedBox(
                                                     height: 1.h,
                                                   ),
-                                                  Center(
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        Get.to(
-                                                            () =>
-                                                                ClinicServicesListView(),
-                                                            arguments: {
-                                                              "clinicID": controller
-                                                                  .clientHomeModel!
-                                                                  .clinicId
-                                                                  .toString(),
-                                                              "clinicName": controller
-                                                                  .clientHomeModel!
-                                                                  .clinicName
-                                                                  .toString(),
-                                                              "clinicContactNo":
-                                                                  controller
-                                                                      .clientHomeModel!
-                                                                      .clinicContactNo
-                                                                      .toString(),
-                                                              "clinicDentist": controller
-                                                                  .clientHomeModel!
-                                                                  .clinicDentistName
-                                                                  .toString(),
-                                                            });
-                                                      },
-                                                      child: Container(
-                                                        height: 4.5.h,
-                                                        width: 40.w,
-                                                        decoration: BoxDecoration(
-                                                            color: AppColor
-                                                                .mainColors,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        3)),
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Text(
-                                                            "View Services",
-                                                            style: TextStyle(
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                fontSize: 9.sp,
-                                                                letterSpacing:
-                                                                    1,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600)),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () {
+                                                          Get.to(
+                                                              () =>
+                                                                  ClinicServicesListView(),
+                                                              arguments: {
+                                                                "clinicID": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicId
+                                                                    .toString(),
+                                                                "clinicName": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicName
+                                                                    .toString(),
+                                                                "clinicContactNo": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicContactNo
+                                                                    .toString(),
+                                                                "clinicDentist": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicDentistName
+                                                                    .toString(),
+                                                                "clinicEmail": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicEmail
+                                                                    .toString(),
+                                                              });
+                                                        },
+                                                        child: Container(
+                                                          height: 4.5.h,
+                                                          width: 24.w,
+                                                          decoration: BoxDecoration(
+                                                              color: AppColor
+                                                                  .mainColors,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          3)),
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Text(
+                                                              "Services",
+                                                              style: TextStyle(
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  fontSize:
+                                                                      9.sp,
+                                                                  letterSpacing:
+                                                                      1,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600)),
+                                                        ),
                                                       ),
-                                                    ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          Get.to(
+                                                              () =>
+                                                                  ClinicRatingView(),
+                                                              arguments: {
+                                                                "clinicID": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicId
+                                                                    .toString(),
+                                                                "clinicName": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicName
+                                                                    .toString(),
+                                                                "clinicContactNo": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicContactNo
+                                                                    .toString(),
+                                                                "clinicDentist": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicDentistName
+                                                                    .toString(),
+                                                                "clinicImage": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicImage
+                                                                    .toString(),
+                                                                "clinicEmail": controller
+                                                                    .clientHomeModel!
+                                                                    .clinicEmail
+                                                                    .toString(),
+                                                              });
+                                                        },
+                                                        child: Container(
+                                                          height: 4.5.h,
+                                                          width: 24.w,
+                                                          decoration: BoxDecoration(
+                                                              color: AppColor
+                                                                  .mainColors,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          3)),
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Text("Ratings",
+                                                              style: TextStyle(
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  fontSize:
+                                                                      9.sp,
+                                                                  letterSpacing:
+                                                                      1,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600)),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   )
                                                 ],
                                               )),

@@ -3,10 +3,11 @@ include 'conn.php';
 
 	try {
 
-	$clinicID = $_POST['clinicID'];
+	$services_clinic_id = $_POST['services_clinic_id'];
+	$services_id = $_POST['services_id'];
 
 	
-	$queryResult=$connect->query("UPDATE `tbl_clinic` SET `subscription_status`= 'Paid',`subscription_amount`='1500' WHERE clinic_id = '$clinicID'");
+	$queryResult=$connect->query("DELETE FROM `tbl_clinic_services` WHERE services_id = '$services_id' AND services_clinic_id = '$services_clinic_id'");
 
 
 	$data = array(

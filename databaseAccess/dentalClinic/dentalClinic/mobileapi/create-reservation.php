@@ -11,14 +11,15 @@ try {
     $res_schedule = $_POST['res_schedule'];
     $res_payment_gateway = $_POST['res_payment_gateway'];
     $res_client_id = $_POST['res_client_id'];
+    $res_schedule_time = $_POST['res_schedule_time'];
     $res_status = 'Pending';
 
 
 $queryResult=$connect->query("INSERT INTO `tbl_reservations`( `res_service_name`, `res_clinic_id`,
                              `res_service_price`, `res_fee`, `res_total_amount`,
-                             `res_schedule`, `res_payment_gateway`, `res_client_id`, `res_status`, `res_remarks`) 
+                             `res_schedule`,`res_schedule_time`, `res_payment_gateway`, `res_client_id`, `res_status`, `res_remarks`) 
                             VALUES ('$res_service_name','$res_clinic_id','$res_service_price',
-                            '$res_fee','$res_total_amount','$res_schedule','$res_payment_gateway','$res_client_id','$res_status','')");
+                            '$res_fee','$res_total_amount','$res_schedule','$res_schedule_time','$res_payment_gateway','$res_client_id','$res_status','')");
 
 // while($fetchData=$queryResult->fetch_assoc()){
 // $result[]=$fetchData;

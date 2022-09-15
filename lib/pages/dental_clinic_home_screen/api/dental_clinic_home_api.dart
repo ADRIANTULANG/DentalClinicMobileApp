@@ -111,4 +111,152 @@ class DentalClinicAppointmentsApi {
       return false;
     }
   }
+
+  static Future getSubscritpionStatus() async {
+    try {
+      var response = await client.post(
+        Uri.parse(
+            '${AppEndpoint.endPointDomain}/get-clinic-subscription-status.php'),
+        body: {
+          "clinicID":
+              Get.find<StorageServices>().storage.read('clinicId').toString(),
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        // return true;
+        return jsonDecode(response.body)['data'][0]['subscription_status'];
+      } else {
+        return false;
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Get Subscription Status Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Get Subscription Status Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Get Subscription Status Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    }
+  }
+
+//
+  static Future<List<ClinicSubscriptionDates>>
+      getClinicSubscriptionDates() async {
+    try {
+      var response = await client.post(
+        Uri.parse(
+            '${AppEndpoint.endPointDomain}/get-clinic-subscription-status-dates.php'),
+        body: {
+          "clinicID":
+              Get.find<StorageServices>().storage.read('clinicId').toString(),
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        return clinicSubscriptionDatesFromJson(
+            jsonEncode(jsonDecode(response.body)['data']));
+      } else {
+        return [];
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Get Clinic Dates Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Get Clinic Dates Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Get Clinic Dates Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
+    }
+  }
+
+  static Future updateClinicStatusToExpired() async {
+    try {
+      var response = await client.post(
+        Uri.parse(
+            '${AppEndpoint.endPointDomain}/update-clinic-subscription-status-to-expired.php'),
+        body: {
+          "clinicID":
+              Get.find<StorageServices>().storage.read('clinicId').toString(),
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        return true;
+      } else {
+        return false;
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Update Clinic to Expired Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return true;
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Update Clinic to Expired Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return true;
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Update Clinic to Expired Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return true;
+    }
+  }
 }

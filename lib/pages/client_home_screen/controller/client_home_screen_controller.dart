@@ -10,9 +10,17 @@ class ClientHomeViewController extends GetxController {
 
   TextEditingController searchValue = TextEditingController();
   RxBool isLoading = true.obs;
+  RxBool isGettingClinics = true.obs;
+
+  RxList<int> kilometersList = <int>[].obs;
+
+  RxString isSelectedDistance = 5.toString().obs;
+
   @override
-  void onInit() {
-    getNearClinics();
+  void onInit() async {
+    await getNearClinics(distanceInKilometers: 5.toString());
+    await setListKilometers();
+    isLoading(false);
     super.onInit();
   }
 
@@ -21,10 +29,22 @@ class ClientHomeViewController extends GetxController {
     super.onClose();
   }
 
-  getNearClinics() async {
-    nearestClinic.assignAll(await ClientHomeApi.getClinicNearest());
+  setListKilometers() {
+    var count = 0;
+    for (var i = 0; i < 20; i++) {
+      count = count + 5;
+      kilometersList.add(count);
+    }
+  }
+
+  getNearClinics({required String distanceInKilometers}) async {
+    isGettingClinics(true);
+    nearestClinic.clear();
+    nearestClinic_masterList.clear();
+    nearestClinic.assignAll(await ClientHomeApi.getClinicNearest(
+        distanceInKilometers: distanceInKilometers));
     nearestClinic_masterList.assignAll(nearestClinic);
-    isLoading(false);
+    isGettingClinics(false);
   }
 
   searchClinic({required String value}) {

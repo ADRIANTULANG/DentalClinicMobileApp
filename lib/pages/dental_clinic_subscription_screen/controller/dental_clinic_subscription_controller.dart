@@ -4,6 +4,7 @@ import 'package:dcams/pages/login_screen/view/login_screen_view.dart';
 import 'package:dcams/services/storage_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// import 'package:intl/intl.dart';
 
 class DentalClinicSubscriptionController extends GetxController {
   RxBool isCheckGcash = false.obs;
@@ -24,8 +25,15 @@ class DentalClinicSubscriptionController extends GetxController {
 
   updateClinicSubscription() async {
     isSubscribing(true);
+    DateTime exp = DateTime.now().add(Duration(days: 30));
+    DateTime pur = DateTime.now();
+
     bool isSuccess =
-        await DentalClinicSubscriptionsApi.updateClinicSubscription();
+        await DentalClinicSubscriptionsApi.updateClinicSubscription(
+            amount: 1500.toString(),
+            sub_expiration_date: exp.toString(),
+            sub_purchased_date: pur.toString());
+
     if (isSuccess == true) {
       Get.find<StorageServices>().removeStorageCredentials();
       Get.offAll(() => LoginScreenView());

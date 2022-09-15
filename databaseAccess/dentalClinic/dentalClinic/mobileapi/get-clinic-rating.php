@@ -2,10 +2,10 @@
 include 'conn.php'; 
 $result=array();
 try {
-// $username = $_POST['username'];
-// $password = $_POST['password'];
+$clinicID = $_POST['clinicID'];
 
-$queryResult=$connect->query("SELECT * FROM tbl_clinic WHERE clinic_status = 'Approved' AND  subscription_status = 'Paid'");
+
+$queryResult=$connect->query("SELECT a.*,b.client_name FROM `tbl_clinic_rating` a LEFT JOIN tbl_clients b on a.rating_client_id = b.client_id WHERE a.rating_clinic_id = '$clinicID'");
 
 while($fetchData=$queryResult->fetch_assoc()){
 $result[]=$fetchData;

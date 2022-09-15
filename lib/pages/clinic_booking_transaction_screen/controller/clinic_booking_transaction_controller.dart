@@ -22,6 +22,16 @@ class ClinicBookingTransactionController extends GetxController {
   RxBool isSubmitingReservation = false.obs;
 
   RxString isSelectedPaymentGateway = "".obs;
+  TextEditingController paymentContactTextField = TextEditingController();
+
+  List minutes = [];
+  List hourss = [];
+
+  RxString partialselectedAmPm = "AM".obs;
+  RxString partialselectedHour = "01".obs;
+  RxString partialselectedMinutes = "00".obs;
+
+  RxBool isLoading = true.obs;
 
   DateTime dateSelected = DateTime.now();
   @override
@@ -33,7 +43,10 @@ class ClinicBookingTransactionController extends GetxController {
     clinicContactNo.value = await Get.arguments['clinicContactNo'];
     clinicDentist.value = await Get.arguments['clinicDentist'];
     print(servicesPrice.value);
+    await getHours();
+    await getminutes();
     await getTotalAmount();
+    isLoading(false);
     super.onInit();
   }
 
@@ -53,49 +66,73 @@ class ClinicBookingTransactionController extends GetxController {
     print(dateSelected);
   }
 
+  getminutes() {
+    int starting = 0;
+    for (var i = 0; i < 60; i++) {
+      String text = "";
+      if (starting.toString().length == 1) {
+        text = "0" + starting.toString();
+      } else {
+        text = starting.toString();
+      }
+      minutes.add(text);
+      starting++;
+    }
+  }
+
+  getHours() {
+    int starting = 1;
+    for (var i = 0; i < 12; i++) {
+      String text = "";
+      if (starting.toString().length == 1) {
+        text = "0" + starting.toString();
+      } else {
+        text = starting.toString();
+      }
+      hourss.add(text);
+      starting++;
+    }
+  }
+
   submit_reservation() async {
-    if (isSelectedPaymentGateway.value == "") {
+    isSubmitingReservation(true);
+    bool isSuccess = await ClinicBookingTransactionApi.create_reservation(
+        res_schedule_time: partialselectedHour.value +
+            ":" +
+            partialselectedMinutes.value +
+            " " +
+            partialselectedAmPm.value,
+        res_service_name: servicesName.value,
+        res_clinic_id: clinicID.value,
+        res_service_price: servicesPrice.value.toString(),
+        res_fee: reservationFee.value.toString(),
+        res_total_amount: servicesFinalPrice.toStringAsFixed(2),
+        res_schedule: dateSelected.toString(),
+        res_payment_gateway: isSelectedPaymentGateway.value,
+        res_client_id:
+            Get.find<StorageServices>().storage.read('clientId').toString());
+    if (isSuccess == true) {
+      Get.back();
+      Get.back();
+      Get.back();
+      Get.back();
+
       Get.snackbar(
-        "message",
-        "Please choose one payment method.",
+        "Message",
+        "Succesfully Reserved",
+        colorText: Colors.white,
+        backgroundColor: AppColor.mainColors,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else {
+      Get.snackbar(
+        "Message",
+        "Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.redAccent,
         snackPosition: SnackPosition.TOP,
       );
-    } else {
-      isSubmitingReservation(true);
-      bool isSuccess = await ClinicBookingTransactionApi.create_reservation(
-          res_service_name: servicesName.value,
-          res_clinic_id: clinicID.value,
-          res_service_price: servicesPrice.value.toString(),
-          res_fee: reservationFee.value.toString(),
-          res_total_amount: servicesFinalPrice.toStringAsFixed(2),
-          res_schedule: dateSelected.toString(),
-          res_payment_gateway: isSelectedPaymentGateway.value,
-          res_client_id:
-              Get.find<StorageServices>().storage.read('clientId').toString());
-      if (isSuccess == true) {
-        Get.back();
-        Get.back();
-        Get.back();
-
-        Get.snackbar(
-          "Message",
-          "Succesfully Reserved",
-          colorText: Colors.white,
-          backgroundColor: AppColor.mainColors,
-          snackPosition: SnackPosition.TOP,
-        );
-      } else {
-        Get.snackbar(
-          "Message",
-          "Please try again later.",
-          colorText: Colors.white,
-          backgroundColor: Colors.redAccent,
-          snackPosition: SnackPosition.TOP,
-        );
-      }
-      isSubmitingReservation(false);
     }
+    isSubmitingReservation(false);
   }
 }
