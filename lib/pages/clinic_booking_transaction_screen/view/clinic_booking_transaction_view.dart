@@ -59,160 +59,100 @@ class ClinicBookingTransactionView
                                       fontWeight: FontWeight.w400),
                                 ),
                               ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
                               Container(
-                                width: 100.w,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        "Service: ",
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            letterSpacing: 1.5,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Obx(() => Text(
-                                            controller.servicesName.value,
-                                            style: TextStyle(
-                                                fontSize: 12.sp,
-                                                letterSpacing: 1.5,
-                                                fontWeight: FontWeight.normal),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Container(
-                                width: 100.w,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        "Dentist: ",
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            letterSpacing: 1.5,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Obx(() => Text(
-                                            controller.clinicDentist.value,
-                                            style: TextStyle(
-                                                fontSize: 12.sp,
-                                                letterSpacing: 1.5,
-                                                fontWeight: FontWeight.normal),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Container(
-                                width: 100.w,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        "Contact No: ",
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            letterSpacing: 1.5,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Obx(() => Text(
-                                            controller.clinicContactNo.value,
-                                            style: TextStyle(
-                                                fontSize: 12.sp,
-                                                letterSpacing: 1.5,
-                                                fontWeight: FontWeight.normal),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Container(
-                                width: 100.w,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        "Price: ",
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            letterSpacing: 1.5,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Obx(() => Text(
-                                            "P " +
-                                                double.parse(controller
-                                                        .servicesPrice.value)
-                                                    .toStringAsFixed(2),
-                                            style: TextStyle(
-                                                fontSize: 12.sp,
-                                                letterSpacing: 1.5,
-                                                fontWeight: FontWeight.normal),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Container(
-                                width: 100.w,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        "Reservation Fee: ",
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            letterSpacing: 1.5,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Obx(
-                                        () => Text(
-                                          controller.reservationFee.value
-                                              .toStringAsFixed(2),
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              letterSpacing: 1.5,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                child: Obx(
+                                  () => ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        controller.servicesCheckList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Column(
+                                        children: [
+                                          Container(
+                                            width: 100.w,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  child: Text(
+                                                    "Service: ",
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        letterSpacing: 1.5,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Obx(() => Text(
+                                                          controller
+                                                              .servicesCheckList[
+                                                                  index]
+                                                              .servicesName,
+                                                          style: TextStyle(
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              fontSize: 12.sp,
+                                                              letterSpacing:
+                                                                  1.5,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal),
+                                                        )),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 100.w,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  child: Text(
+                                                    "Price: ",
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        letterSpacing: 1.5,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  child: Obx(() => Text(
+                                                        "P " +
+                                                            controller
+                                                                .servicesCheckList[
+                                                                    index]
+                                                                .servicesPrice,
+                                                        style: TextStyle(
+                                                            fontSize: 12.sp,
+                                                            letterSpacing: 1.5,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 1.h,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -587,49 +527,76 @@ class ClinicBookingTransactionView
                       SizedBox(
                         height: 2.h,
                       ),
-                      InkWell(
-                        onTap: () {
-                          // controller.submit_reservation();
-                          if (controller.isSelectedPaymentGateway.value != "") {
-                            ClinicBookingTransactionDialog
-                                .showVerificationPaymentOptions(
-                                    controller: controller,
-                                    paymentType: controller
-                                        .isSelectedPaymentGateway.value);
-                          } else {
-                            Get.snackbar(
-                              "message",
-                              "Please choose one payment method.",
-                              colorText: Colors.white,
-                              backgroundColor: Colors.redAccent,
-                              snackPosition: SnackPosition.TOP,
-                            );
-                          }
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 5.w, right: 5.w),
-                          child: Container(
-                            height: 8.h,
-                            width: 100.w,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: AppColor.mainColors,
-                                boxShadow: [
-                                  BoxShadow(
-                                      spreadRadius: 1,
-                                      blurRadius: 10,
-                                      color: Colors.grey)
-                                ]),
-                            child: Text(
-                              "DONE",
-                              style: TextStyle(
-                                  fontSize: 15.sp,
-                                  letterSpacing: 2,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
+                      Obx(
+                        () => controller.isSubmitingReservation.value == true
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                                child: Container(
+                                    height: 8.h,
+                                    width: 100.w,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: AppColor.mainColors,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 1,
+                                              blurRadius: 10,
+                                              color: Colors.grey)
+                                        ]),
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  // controller.submit_reservation();
+                                  if (controller
+                                          .isSelectedPaymentGateway.value !=
+                                      "") {
+                                    ClinicBookingTransactionDialog
+                                        .showVerificationPaymentOptions(
+                                            context: context,
+                                            controller: controller,
+                                            paymentType: controller
+                                                .isSelectedPaymentGateway
+                                                .value);
+                                  } else {
+                                    Get.snackbar(
+                                      "message",
+                                      "Please choose one payment method.",
+                                      colorText: Colors.white,
+                                      backgroundColor: Colors.redAccent,
+                                      snackPosition: SnackPosition.TOP,
+                                    );
+                                  }
+                                },
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 5.w, right: 5.w),
+                                  child: Container(
+                                    height: 8.h,
+                                    width: 100.w,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: AppColor.mainColors,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 1,
+                                              blurRadius: 10,
+                                              color: Colors.grey)
+                                        ]),
+                                    child: Text(
+                                      "DONE",
+                                      style: TextStyle(
+                                          fontSize: 15.sp,
+                                          letterSpacing: 2,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ),
+                              ),
                       ),
                       SizedBox(
                         height: 2.h,

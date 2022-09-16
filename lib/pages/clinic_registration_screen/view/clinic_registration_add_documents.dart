@@ -245,7 +245,7 @@ class ClinicRegistrationAddDocuments
                 width: 100.w,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Certificate of Phgeps",
+                  "Certificate of Philgeps",
                   style:
                       TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
                 ),

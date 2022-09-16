@@ -344,7 +344,8 @@ class ClinicGoogleMapsDetailsView
                                                                           3)),
                                                           alignment:
                                                               Alignment.center,
-                                                          child: Text("Ratings",
+                                                          child: Text(
+                                                              "Feedback",
                                                               style: TextStyle(
                                                                   overflow:
                                                                       TextOverflow

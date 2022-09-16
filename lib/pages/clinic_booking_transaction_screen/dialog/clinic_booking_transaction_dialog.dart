@@ -7,10 +7,10 @@ import '../../../constant/color_class.dart';
 import '../controller/clinic_booking_transaction_controller.dart';
 
 class ClinicBookingTransactionDialog {
-  static showVerificationPaymentOptions({
-    required ClinicBookingTransactionController controller,
-    required String paymentType,
-  }) {
+  static showVerificationPaymentOptions(
+      {required ClinicBookingTransactionController controller,
+      required String paymentType,
+      required BuildContext context}) {
     Get.dialog(
         AlertDialog(
           content: Container(
@@ -70,7 +70,9 @@ class ClinicBookingTransactionDialog {
                         snackPosition: SnackPosition.TOP,
                       );
                     } else {
-                      controller.submit_reservation();
+                      Get.back();
+                      FocusScope.of(context).unfocus();
+                      controller.submit_reservation(context: context);
                     }
                   },
                   child: Obx(

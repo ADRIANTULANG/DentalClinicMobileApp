@@ -135,82 +135,116 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                                         top: 1.h, left: 3.w, right: 3.w),
                                     child: InkWell(
                                       onTap: () {
-                                        Get.to(
-                                            () =>
-                                                ClinicBookingTransactionView(),
-                                            arguments: {
-                                              'servicesName': controller
-                                                  .servicesList[index]
-                                                  .servicesName,
-                                              'servicesID': controller
-                                                  .servicesList[index]
-                                                  .servicesId,
-                                              'clinicID': controller
-                                                  .servicesList[index]
-                                                  .servicesClinicId,
-                                              'servicesPrice': controller
-                                                  .servicesList[index]
-                                                  .servicesPrice,
-                                              'clinicContactNo': controller
-                                                  .clinicContactNo.value,
-                                              'clinicDentist': controller
-                                                  .clinicDentist.value,
-                                            });
+                                        // Get.to(
+                                        //   () => ClinicBookingTransactionView(),
+                                        //   arguments: {
+                                        //     'servicesName': controller
+                                        //         .servicesList[index]
+                                        //         .servicesName,
+                                        //     'servicesID': controller
+                                        //         .servicesList[index].servicesId,
+                                        //     'clinicID': controller
+                                        //         .servicesList[index]
+                                        //         .servicesClinicId,
+                                        //     'servicesPrice': controller
+                                        //         .servicesList[index]
+                                        //         .servicesPrice,
+                                        //     'clinicContactNo': controller
+                                        //         .clinicContactNo.value,
+                                        //     'clinicDentist':
+                                        //         controller.clinicDentist.value,
+                                        //   },
+                                        // );
                                       },
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            top: 2.h,
-                                            bottom: 2.h,
-                                            left: 3.w,
-                                            right: 3.w),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: Colors.white,
-                                            border: Border.all(
-                                                color: Colors.black)),
-                                        child: Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                controller.servicesList[index]
-                                                    .servicesName,
-                                                style: TextStyle(
-                                                    fontSize: 13.sp,
-                                                    letterSpacing: 1.5,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                              Text(
-                                                "P " +
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Obx(
+                                            () => Checkbox(
+                                                value: controller
+                                                    .servicesList[index]
+                                                    .servicesCheckbox
+                                                    .value,
+                                                onChanged: (value) {
+                                                  if (controller
+                                                          .servicesList[index]
+                                                          .servicesCheckbox
+                                                          .value ==
+                                                      true) {
                                                     controller
                                                         .servicesList[index]
-                                                        .servicesPrice,
-                                                style: TextStyle(
-                                                    fontSize: 10.sp,
-                                                    color: Colors.red,
-                                                    letterSpacing: 1,
-                                                    fontWeight:
-                                                        FontWeight.w200),
-                                              ),
-                                              SizedBox(
-                                                height: 2.h,
-                                              ),
-                                              Text(
-                                                controller.servicesList[index]
-                                                    .servicesDescription,
-                                                style: TextStyle(
-                                                    fontSize: 11.sp,
-                                                    color: Colors.black,
-                                                    letterSpacing: 1.5,
-                                                    fontWeight:
-                                                        FontWeight.w200),
-                                              )
-                                            ],
+                                                        .servicesCheckbox
+                                                        .value = false;
+                                                  } else {
+                                                    controller
+                                                        .servicesList[index]
+                                                        .servicesCheckbox
+                                                        .value = true;
+                                                  }
+                                                }),
                                           ),
-                                        ),
+                                          Expanded(
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                  top: 2.h,
+                                                  bottom: 2.h,
+                                                  left: 3.w,
+                                                  right: 3.w),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: Colors.white,
+                                                  border: Border.all(
+                                                      color: Colors.black)),
+                                              child: Container(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      controller
+                                                          .servicesList[index]
+                                                          .servicesName,
+                                                      style: TextStyle(
+                                                          fontSize: 13.sp,
+                                                          letterSpacing: 1.5,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                    Text(
+                                                      "P " +
+                                                          controller
+                                                              .servicesList[
+                                                                  index]
+                                                              .servicesPrice,
+                                                      style: TextStyle(
+                                                          fontSize: 10.sp,
+                                                          color: Colors.red,
+                                                          letterSpacing: 1,
+                                                          fontWeight:
+                                                              FontWeight.w200),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 2.h,
+                                                    ),
+                                                    Text(
+                                                      controller
+                                                          .servicesList[index]
+                                                          .servicesDescription,
+                                                      style: TextStyle(
+                                                          fontSize: 11.sp,
+                                                          color: Colors.black,
+                                                          letterSpacing: 1.5,
+                                                          fontWeight:
+                                                              FontWeight.w200),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   );
@@ -218,6 +252,38 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                               ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => ClinicBookingTransactionView(),
+                            arguments: {"clinicID": controller.clinicID.value});
+                      },
+                      child: Container(
+                        height: 8.h,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                            color: AppColor.mainColors,
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: Colors.black54)),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "CHECKOUT",
+                          style: TextStyle(
+                            letterSpacing: 4,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2.h,
                   ),
                 ],
               )),

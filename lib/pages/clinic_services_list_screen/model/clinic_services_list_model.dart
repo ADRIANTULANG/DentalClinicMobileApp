@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 List<ClinicServicesModel> clinicServicesModelFromJson(String str) =>
     List<ClinicServicesModel>.from(
         json.decode(str).map((x) => ClinicServicesModel.fromJson(x)));
@@ -15,6 +17,7 @@ class ClinicServicesModel {
     required this.servicesPrice,
     required this.servicesDescription,
     required this.servicesStatus,
+    required this.servicesCheckbox,
   });
 
   String servicesId;
@@ -23,6 +26,7 @@ class ClinicServicesModel {
   String servicesPrice;
   String servicesDescription;
   String servicesStatus;
+  RxBool servicesCheckbox;
 
   factory ClinicServicesModel.fromJson(Map<String, dynamic> json) =>
       ClinicServicesModel(
@@ -32,6 +36,7 @@ class ClinicServicesModel {
         servicesPrice: json["services_price"],
         servicesDescription: json["services_description"],
         servicesStatus: json["services_status"],
+        servicesCheckbox: false.obs,
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,5 +46,6 @@ class ClinicServicesModel {
         "services_price": servicesPrice,
         "services_description": servicesDescription,
         "services_status": servicesStatus,
+        "servicesCheckbox": servicesCheckbox,
       };
 }
