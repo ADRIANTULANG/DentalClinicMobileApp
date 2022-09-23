@@ -44,14 +44,33 @@ class LoginScreenView extends GetView<LoginController> {
               padding: EdgeInsets.only(left: 5.w, right: 5.w),
               height: 8.h,
               width: 100.w,
-              child: TextField(
-                controller: controller.password,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  labelText: 'Password',
-                  hintText: 'Enter password',
+              child: Obx(
+                () => TextField(
+                  controller: controller.password,
+                  obscureText: controller.isPasswordObscure.value,
+                  decoration: InputDecoration(
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        if (controller.isPasswordObscure.value == true) {
+                          controller.isPasswordObscure.value = false;
+                        } else {
+                          controller.isPasswordObscure.value = true;
+                        }
+                      },
+                      child: Obx(
+                        () => Icon(
+                          Icons.remove_red_eye,
+                          color: controller.isPasswordObscure.value
+                              ? Colors.grey[400]
+                              : AppColor.mainColors,
+                        ),
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    labelText: 'Password',
+                    hintText: 'Enter password',
+                  ),
                 ),
               ),
             ),

@@ -7,6 +7,7 @@ import '../view/client_registration_otp_view.dart';
 
 class ClientRegistrationController extends GetxController {
   RxBool isCreating = false.obs;
+  RxBool isPasswordObscure = true.obs;
 
   TextEditingController name = TextEditingController();
   TextEditingController username = TextEditingController();

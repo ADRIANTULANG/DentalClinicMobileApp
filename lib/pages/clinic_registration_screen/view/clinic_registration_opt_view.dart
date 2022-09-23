@@ -19,7 +19,7 @@ class ClinicRegistrationOtpView extends GetView<ClinicRegistrationController> {
             Container(
                 alignment: Alignment.center,
                 child: Text(
-                  "Please Enter OPT.",
+                  "Please Enter OTP.",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

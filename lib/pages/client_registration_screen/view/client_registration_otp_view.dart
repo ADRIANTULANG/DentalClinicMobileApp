@@ -21,7 +21,7 @@ class ClientRegistrationOtp extends GetView<ClientRegistrationController> {
             Container(
                 alignment: Alignment.center,
                 child: Text(
-                  "Please Enter OPT.",
+                  "Please Enter OTP.",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

@@ -13,6 +13,8 @@ class LoginController extends GetxController {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   RxList<LoginModel> userData = <LoginModel>[].obs;
+
+  RxBool isPasswordObscure = true.obs;
   @override
   void onInit() {
     super.onInit();

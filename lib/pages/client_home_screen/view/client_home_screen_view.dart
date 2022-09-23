@@ -9,6 +9,7 @@ import '../../../constant/color_class.dart';
 import '../../client_account_screen/view/client_account_view.dart';
 import '../../client_appointments_screen/view/client_appointment_view.dart';
 import '../../clinic_googlemap_details_screen/view/clinic_googlemaps_details_view.dart';
+import '../../patients_rights_responsibilities_view/view/patient_rights_responsibilities_for_viewing.dart';
 import '../controller/client_home_screen_controller.dart';
 
 class ClientHomeScreenView extends GetView<ClientHomeViewController> {
@@ -98,6 +99,37 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                             SizedBox(
                               width: 2.w,
                             ),
+                            Expanded(child: SizedBox()),
+                            InkWell(
+                              onTap: () {
+                                ClientHomeScreenDialog.showLogoutDialog();
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(2.w),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 227, 234, 241),
+                                    // borderRadius: BorderRadius.circular(3),
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 1,
+                                          color: Colors.grey),
+                                    ]),
+                                child: Icon(
+                                  Icons.logout_rounded,
+                                  size: 15.sp,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 100.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             InkWell(
                               onTap: () {
                                 ClientHomeScreenDialog
@@ -125,10 +157,10 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                                 ),
                               ),
                             ),
-                            Expanded(child: SizedBox()),
                             InkWell(
                               onTap: () {
-                                ClientHomeScreenDialog.showLogoutDialog();
+                                Get.to(() =>
+                                    RightsAndResponsibilitiesViewForViewing());
                               },
                               child: Container(
                                 padding: EdgeInsets.all(2.w),
@@ -143,11 +175,11 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                                           color: Colors.grey),
                                     ]),
                                 child: Icon(
-                                  Icons.logout_rounded,
+                                  Icons.info_outline_rounded,
                                   size: 15.sp,
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

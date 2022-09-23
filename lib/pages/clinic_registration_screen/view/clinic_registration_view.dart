@@ -14,7 +14,6 @@ class ClinicRegistrationView extends GetView<ClinicRegistrationController> {
   Widget build(BuildContext context) {
     Get.put(ClinicRegistrationController());
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Container(
         padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 7.h),
         child: SingleChildScrollView(
@@ -110,16 +109,35 @@ class ClinicRegistrationView extends GetView<ClinicRegistrationController> {
               Container(
                 height: 7.h,
                 width: 100.w,
-                child: TextField(
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12.sp,
-                      letterSpacing: 2),
-                  controller: controller.clinicPassword,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                child: Obx(
+                  () => TextField(
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12.sp,
+                        letterSpacing: 2),
+                    controller: controller.clinicPassword,
+                    obscureText: controller.isPasswordObscure.value,
+                    decoration: InputDecoration(
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          if (controller.isPasswordObscure.value == true) {
+                            controller.isPasswordObscure.value = false;
+                          } else {
+                            controller.isPasswordObscure.value = true;
+                          }
+                        },
+                        child: Obx(
+                          () => Icon(
+                            Icons.remove_red_eye,
+                            color: controller.isPasswordObscure.value
+                                ? Colors.grey[400]
+                                : AppColor.mainColors,
+                          ),
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                    ),
                   ),
                 ),
               ),

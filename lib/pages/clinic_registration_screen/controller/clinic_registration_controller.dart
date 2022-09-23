@@ -27,6 +27,8 @@ class ClinicRegistrationController extends GetxController {
   GoogleMapController? googleMapController;
   RxList<Marker> markers = <Marker>[].obs;
 
+  RxBool isPasswordObscure = true.obs;
+
   TextEditingController placesString = TextEditingController();
 
   Timer? debounce;
