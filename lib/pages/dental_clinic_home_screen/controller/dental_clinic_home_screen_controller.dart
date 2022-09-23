@@ -76,6 +76,8 @@ class DentalClinicHomeScreenController extends GetxController {
   }
 
   getClinicAppointments() async {
+    List<DentalClinicAppointmentsModle> listpending = [];
+    List<DentalClinicAppointmentsModle> listapproved = [];
     List<DentalClinicAppointmentsModle> data =
         await DentalClinicAppointmentsApi.getClinicAppointments();
     pendingList.clear();
@@ -83,11 +85,13 @@ class DentalClinicHomeScreenController extends GetxController {
     print(data.length);
     for (var i = 0; i < data.length; i++) {
       if (data[i].resStatus == "Pending") {
-        pendingList.add(data[i]);
+        listpending.add(data[i]);
       } else if (data[i].resStatus == "Approved") {
-        approvedList.add(data[i]);
+        listapproved.add(data[i]);
       }
     }
+    pendingList.assignAll(listpending.reversed.toList());
+    approvedList.assignAll(listapproved.reversed.toList());
   }
 
   approvedAppointMents({required String resID}) async {

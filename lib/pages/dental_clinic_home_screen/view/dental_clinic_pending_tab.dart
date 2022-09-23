@@ -180,8 +180,10 @@ class PendingTab extends GetView<DentalClinicHomeScreenController> {
                                         ),
                                         Text(
                                           "P " +
-                                              controller
-                                                  .pendingList[index].resFee,
+                                              double.parse(controller
+                                                      .pendingList[index]
+                                                      .resFee)
+                                                  .toStringAsFixed(2),
                                           style: TextStyle(
                                               color: Colors.red,
                                               fontWeight: FontWeight.w500,
