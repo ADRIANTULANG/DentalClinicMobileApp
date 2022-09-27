@@ -182,6 +182,25 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                                                         .servicesCheckbox
                                                         .value = true;
                                                   }
+                                                  for (var i = 0;
+                                                      i <
+                                                          controller
+                                                              .servicesList
+                                                              .length;
+                                                      i++) {
+                                                    if (controller
+                                                            .servicesList[i]
+                                                            .servicesId ==
+                                                        controller
+                                                            .servicesList[index]
+                                                            .servicesId) {
+                                                    } else {
+                                                      controller
+                                                          .servicesList[i]
+                                                          .servicesCheckbox
+                                                          .value = false;
+                                                    }
+                                                  }
                                                 }),
                                           ),
                                           Expanded(

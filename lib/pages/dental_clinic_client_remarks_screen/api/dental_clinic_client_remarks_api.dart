@@ -18,7 +18,6 @@ class DentalClinicClientRemarksApi {
         Uri.parse('${AppEndpoint.endPointDomain}/get-client-remarks.php'),
         body: {"clientID": clientID.toString()},
       );
-
       if (jsonDecode(response.body)['message'] == "Success") {
         return remarksModelFromJson(
             jsonEncode(jsonDecode(response.body)['data']));

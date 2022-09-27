@@ -6,7 +6,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../constant/color_class.dart';
 import '../../dental_clinic_account_screen/view/dental_clinic_account_view.dart';
 import '../../dental_clinic_billing_screen/view/dental_clinic_billing_view.dart';

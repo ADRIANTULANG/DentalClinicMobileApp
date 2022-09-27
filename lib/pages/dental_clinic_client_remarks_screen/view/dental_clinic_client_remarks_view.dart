@@ -86,6 +86,14 @@ class DentalClinicClientRemarksView
                                                 fontSize: 16.sp,
                                                 letterSpacing: 1.5),
                                           ),
+                                          Text(
+                                            controller.remarksList[index]
+                                                .clinicAddress,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12.sp,
+                                                letterSpacing: 1.5),
+                                          ),
                                           Row(
                                             children: [
                                               Text(
@@ -107,6 +115,25 @@ class DentalClinicClientRemarksView
                                                     letterSpacing: 1.5),
                                               ),
                                             ],
+                                          ),
+                                          SizedBox(
+                                            height: .5.h,
+                                          ),
+                                          Text(
+                                            controller
+                                                .remarksList[index].clinicEmail,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 10.sp,
+                                                letterSpacing: 1.5),
+                                          ),
+                                          Text(
+                                            controller.remarksList[index]
+                                                .clinicContactNo,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 10.sp,
+                                                letterSpacing: 1.5),
                                           ),
                                           SizedBox(
                                             height: 2.h,
