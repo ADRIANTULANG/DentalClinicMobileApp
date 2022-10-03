@@ -124,7 +124,7 @@ class PendingTab extends GetView<DentalClinicHomeScreenController> {
                                     Row(
                                       children: [
                                         Text(
-                                          "Date: ",
+                                          "Time: ",
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w500,
@@ -241,6 +241,16 @@ class PendingTab extends GetView<DentalClinicHomeScreenController> {
                                     InkWell(
                                       onTap: () {
                                         controller.approvedAppointMents(
+                                            userToken: controller
+                                                .pendingList[index].fcmToken,
+                                            service: controller
+                                                .pendingList[index]
+                                                .resServiceName,
+                                            date: DateFormat.yMMMMd().format(
+                                                controller.pendingList[index]
+                                                    .resSchedule),
+                                            time: controller.pendingList[index]
+                                                .resScheduleTime,
                                             resID: controller
                                                 .pendingList[index].resId);
                                       },

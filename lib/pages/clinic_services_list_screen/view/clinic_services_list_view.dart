@@ -161,48 +161,91 @@ class ClinicServicesListView extends GetView<ClinicServicesController> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Obx(
-                                            () => Checkbox(
-                                                value: controller
-                                                    .servicesList[index]
-                                                    .servicesCheckbox
-                                                    .value,
-                                                onChanged: (value) {
-                                                  if (controller
-                                                          .servicesList[index]
-                                                          .servicesCheckbox
-                                                          .value ==
-                                                      true) {
-                                                    controller
+                                            () => Radio(
+                                              value: true,
+                                              groupValue: controller
+                                                  .servicesList[index]
+                                                  .servicesCheckbox
+                                                  .value,
+                                              onChanged: (value) {
+                                                if (controller
                                                         .servicesList[index]
                                                         .servicesCheckbox
-                                                        .value = false;
+                                                        .value ==
+                                                    true) {
+                                                  controller
+                                                      .servicesList[index]
+                                                      .servicesCheckbox
+                                                      .value = false;
+                                                } else {
+                                                  controller
+                                                      .servicesList[index]
+                                                      .servicesCheckbox
+                                                      .value = true;
+                                                }
+                                                for (var i = 0;
+                                                    i <
+                                                        controller.servicesList
+                                                            .length;
+                                                    i++) {
+                                                  if (controller.servicesList[i]
+                                                          .servicesId ==
+                                                      controller
+                                                          .servicesList[index]
+                                                          .servicesId) {
                                                   } else {
                                                     controller
-                                                        .servicesList[index]
+                                                        .servicesList[i]
                                                         .servicesCheckbox
-                                                        .value = true;
+                                                        .value = false;
                                                   }
-                                                  for (var i = 0;
-                                                      i <
-                                                          controller
-                                                              .servicesList
-                                                              .length;
-                                                      i++) {
-                                                    if (controller
-                                                            .servicesList[i]
-                                                            .servicesId ==
-                                                        controller
-                                                            .servicesList[index]
-                                                            .servicesId) {
-                                                    } else {
-                                                      controller
-                                                          .servicesList[i]
-                                                          .servicesCheckbox
-                                                          .value = false;
-                                                    }
-                                                  }
-                                                }),
+                                                }
+                                              },
+                                            ),
                                           ),
+                                          // Obx(
+                                          //   () => Checkbox(
+                                          //       value: controller
+                                          //           .servicesList[index]
+                                          //           .servicesCheckbox
+                                          //           .value,
+                                          //       onChanged: (value) {
+                                          //         if (controller
+                                          //                 .servicesList[index]
+                                          //                 .servicesCheckbox
+                                          //                 .value ==
+                                          //             true) {
+                                          //           controller
+                                          //               .servicesList[index]
+                                          //               .servicesCheckbox
+                                          //               .value = false;
+                                          //         } else {
+                                          //           controller
+                                          //               .servicesList[index]
+                                          //               .servicesCheckbox
+                                          //               .value = true;
+                                          //         }
+                                          //         for (var i = 0;
+                                          //             i <
+                                          //                 controller
+                                          //                     .servicesList
+                                          //                     .length;
+                                          //             i++) {
+                                          //           if (controller
+                                          //                   .servicesList[i]
+                                          //                   .servicesId ==
+                                          //               controller
+                                          //                   .servicesList[index]
+                                          //                   .servicesId) {
+                                          //           } else {
+                                          //             controller
+                                          //                 .servicesList[i]
+                                          //                 .servicesCheckbox
+                                          //                 .value = false;
+                                          //           }
+                                          //         }
+                                          //       },),
+                                          // ),
                                           Expanded(
                                             child: Container(
                                               padding: EdgeInsets.only(

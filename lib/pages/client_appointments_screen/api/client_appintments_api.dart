@@ -61,4 +61,52 @@ class ClientAppointmentsApi {
       return [];
     }
   }
+
+// <List<ClientAppointmentModel>>
+  static Future cancelAppointments({required String appointmentID}) async {
+    // print(Get.find<StorageServices>().storage.read('clientId').toString());
+    try {
+      var response = await client.post(
+        Uri.parse('${AppEndpoint.endPointDomain}/delete-appointment.php'),
+        body: {
+          "appointmentID": appointmentID.toString(),
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        return true;
+      } else {
+        return false;
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Cancel Appointments Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Cancel Appointments Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Cancel Appointments Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    }
+  }
 }

@@ -315,6 +315,57 @@ class ClientAppointmentView extends GetView<ClientAppointmentController> {
                                                     ),
                                                   ],
                                                 ),
+                                          controller.appointmentList[index]
+                                                      .resStatus ==
+                                                  "Pending"
+                                              ? Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 1.h,
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        if (controller
+                                                                .appointmentList[
+                                                                    index]
+                                                                .resStatus ==
+                                                            "Pending") {
+                                                          controller.cancelAppointments(
+                                                              appointmentID: controller
+                                                                  .appointmentList[
+                                                                      index]
+                                                                  .resId
+                                                                  .toString());
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                        height: 5.h,
+                                                        width: 100.w,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
+                                                        child: Text(
+                                                          "Cancel",
+                                                          style: TextStyle(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              letterSpacing: 2),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.h,
+                                                    ),
+                                                  ],
+                                                )
+                                              : SizedBox(),
                                         ],
                                       ),
                                     ),

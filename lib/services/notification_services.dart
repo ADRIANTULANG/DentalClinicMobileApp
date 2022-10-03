@@ -120,4 +120,32 @@ Future<void> onBackgroundMessage() async {
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
+  if (message.notification != null) {
+    print('Message also contained a notification: ${message.notification}');
+
+    // if (Get.find<StorageService>().storage.read("notificationSound") ==
+    //     true) {
+    //   AwesomeNotifications().createNotification(
+    //     content: NotificationContent(
+    //       id: Random().nextInt(9999),
+    //       channelKey: 'basic_channel',
+    //       title: '${message.notification!.title}',
+    //       body: '${message.notification!.body}',
+    //       notificationLayout: NotificationLayout.BigText,
+    //     ),
+    //   );
+    // } else {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: Random().nextInt(9999),
+        channelKey: 'basic_channel_muted',
+        title: '${message.notification!.title}',
+        body: '${message.notification!.body}',
+        notificationLayout: NotificationLayout.BigText,
+      ),
+    );
+    // }
+
+    // call_unseen_messages();
+  }
 }

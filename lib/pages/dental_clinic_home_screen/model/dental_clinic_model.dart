@@ -24,6 +24,7 @@ class DentalClinicAppointmentsModle {
     required this.resStatus,
     required this.resRemarks,
     required this.clientName,
+    required this.fcmToken,
   });
 
   String resId;
@@ -39,6 +40,7 @@ class DentalClinicAppointmentsModle {
   String resStatus;
   String resRemarks;
   String clientName;
+  String fcmToken;
 
   factory DentalClinicAppointmentsModle.fromJson(Map<String, dynamic> json) =>
       DentalClinicAppointmentsModle(
@@ -55,6 +57,7 @@ class DentalClinicAppointmentsModle {
         resStatus: json["res_status"],
         resRemarks: json["res_remarks"],
         clientName: json["client_name"],
+        fcmToken: json["fcmToken"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -71,6 +74,7 @@ class DentalClinicAppointmentsModle {
         "res_status": resStatus,
         "res_remarks": resRemarks,
         "client_name": clientName,
+        "fcmToken": fcmToken,
       };
 }
 

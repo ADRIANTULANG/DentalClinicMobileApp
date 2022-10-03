@@ -94,7 +94,13 @@ class DentalClinicHomeScreenController extends GetxController {
     approvedList.assignAll(listapproved.reversed.toList());
   }
 
-  approvedAppointMents({required String resID}) async {
+  approvedAppointMents({
+    required String resID,
+    required String userToken,
+    required String service,
+    required String date,
+    required String time,
+  }) async {
     bool isSuccess = await DentalClinicAppointmentsApi.updateAppointment(
         resID: resID, remarks: "", status: "Approved");
     if (isSuccess == true) {
@@ -106,6 +112,8 @@ class DentalClinicHomeScreenController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
       getClinicAppointments();
+      sendNotification(
+          userToken: userToken, service: service, date: date, time: time);
     } else {
       Get.snackbar(
         "Message",
@@ -190,5 +198,19 @@ class DentalClinicHomeScreenController extends GetxController {
     } else {
       print("not expired");
     }
+  }
+
+  sendNotification({
+    required String userToken,
+    required String service,
+    required String date,
+    required String time,
+  }) async {
+    await DentalClinicAppointmentsApi.sendNotification(
+        userToken: userToken,
+        service: service,
+        date: date,
+        time: time,
+        clinic: Get.find<StorageServices>().storage.read('clinicName'));
   }
 }
