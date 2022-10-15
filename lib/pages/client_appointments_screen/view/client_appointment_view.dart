@@ -130,6 +130,31 @@ class ClientAppointmentView extends GetView<ClientAppointmentController> {
                                           Row(
                                             children: [
                                               Text(
+                                                "Total payment: ",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 12.sp,
+                                                    letterSpacing: 2),
+                                              ),
+                                              Text(
+                                                "P " +
+                                                    double.parse(controller
+                                                            .appointmentList[
+                                                                index]
+                                                            .resTotalAmount)
+                                                        .toStringAsFixed(1),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12.sp,
+                                                    color: Colors.redAccent,
+                                                    letterSpacing: 1),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
                                                 "Status: ",
                                                 style: TextStyle(
                                                     fontWeight:
