@@ -332,7 +332,7 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                                                                 });
                                                           },
                                                           child: Container(
-                                                            height: 18.h,
+                                                            height: 20.h,
                                                             width: 100.w,
                                                             padding:
                                                                 EdgeInsets.only(
@@ -369,7 +369,7 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                                                                   children: [
                                                                     Container(
                                                                       height:
-                                                                          16.h,
+                                                                          18.h,
                                                                       width:
                                                                           38.w,
                                                                       decoration: BoxDecoration(
@@ -514,6 +514,26 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                                                                             child:
                                                                                 Text(
                                                                               controller.nearestClinic[index].clinicContactNo,
+                                                                              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 10.sp, fontWeight: FontWeight.w300, letterSpacing: .5),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.alarm,
+                                                                            size:
+                                                                                12.sp,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                1.8.w,
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                Text(
+                                                                              "9AM - 5PM",
                                                                               style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 10.sp, fontWeight: FontWeight.w300, letterSpacing: .5),
                                                                             ),
                                                                           ),
