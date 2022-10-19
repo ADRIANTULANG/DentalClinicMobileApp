@@ -260,7 +260,7 @@ class DentalClinicAppointmentsApi {
     }
   }
 
-  static Future sendNotification({
+  static Future sendNotificationApproved({
     required String userToken,
     required String service,
     required String date,
@@ -275,14 +275,36 @@ class DentalClinicAppointmentsApi {
           "body": "RESERVATION APPROVED  $clinic - $service - $date - $time"
         });
     print("e2e notif: ${e2epushnotif.body}");
+  }
 
-    // var mynotif = await http.post(
-    //     Uri.parse('${AppEndpoint.endPointDomain}/push-notification-other.php'),
-    //     body: {
-    //       "fcmtoken": userToken,
-    //       "title": "my notif title",
-    //       "body": "my notif body"
-    //     });
-    // print("mynotif: ${mynotif.body}");
+  static Future sendNotificationReject({
+    required String userToken,
+    required String service,
+    required String clinic,
+  }) async {
+    var e2epushnotif = await http.post(
+        Uri.parse('${AppEndpoint.endPointDomain}/push-notification.php'),
+        body: {
+          "fcmtoken": userToken,
+          "title": "Message",
+          "body": "RESERVATION REJECTED  $clinic - $service"
+        });
+    print("e2e notif: ${e2epushnotif.body}");
+  }
+
+  static Future sendNotificationReminder({
+    required String userToken,
+    required String service,
+    required String message,
+    required String clinic,
+  }) async {
+    var e2epushnotif = await http.post(
+        Uri.parse('${AppEndpoint.endPointDomain}/push-notification.php'),
+        body: {
+          "fcmtoken": userToken,
+          "title": "Message",
+          "body": "$message - $clinic - $service"
+        });
+    print("e2e notif: ${e2epushnotif.body}");
   }
 }

@@ -22,7 +22,8 @@ class DentalClinicHomeScreenController extends GetxController {
       <DentalClinicAppointmentsModle>[].obs;
   RxList<DentalClinicAppointmentsModle> approvedList =
       <DentalClinicAppointmentsModle>[].obs;
-
+  RxList<DentalClinicAppointmentsModle> appointListAll =
+      <DentalClinicAppointmentsModle>[].obs;
   bool isAlreadyRemind = false;
 
   RxString expirationDate = "".obs;
@@ -78,8 +79,10 @@ class DentalClinicHomeScreenController extends GetxController {
   getClinicAppointments() async {
     List<DentalClinicAppointmentsModle> listpending = [];
     List<DentalClinicAppointmentsModle> listapproved = [];
+
     List<DentalClinicAppointmentsModle> data =
         await DentalClinicAppointmentsApi.getClinicAppointments();
+    appointListAll.assignAll(data.reversed.toList());
     pendingList.clear();
     approvedList.clear();
     print(data.length);
@@ -112,7 +115,7 @@ class DentalClinicHomeScreenController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
       getClinicAppointments();
-      sendNotification(
+      sendNotificationApproved(
           userToken: userToken, service: service, date: date, time: time);
     } else {
       Get.snackbar(
@@ -125,10 +128,15 @@ class DentalClinicHomeScreenController extends GetxController {
     }
   }
 
-  rejectAppointments({required String resID, required String remarks}) async {
+  rejectAppointments(
+      {required String resID,
+      required String remarks,
+      required String fcmToken,
+      required String services}) async {
     bool isSuccess = await DentalClinicAppointmentsApi.updateAppointment(
         resID: resID, remarks: remarks, status: "Rejected");
     if (isSuccess == true) {
+      sendNotificationReject(userToken: fcmToken, service: services);
       Get.snackbar(
         "Message",
         "Succesfully Rejected",
@@ -200,17 +208,39 @@ class DentalClinicHomeScreenController extends GetxController {
     }
   }
 
-  sendNotification({
+  sendNotificationApproved({
     required String userToken,
     required String service,
     required String date,
     required String time,
   }) async {
-    await DentalClinicAppointmentsApi.sendNotification(
+    await DentalClinicAppointmentsApi.sendNotificationApproved(
         userToken: userToken,
         service: service,
         date: date,
         time: time,
+        clinic: Get.find<StorageServices>().storage.read('clinicName'));
+  }
+
+  sendNotificationReject({
+    required String userToken,
+    required String service,
+  }) async {
+    await DentalClinicAppointmentsApi.sendNotificationReject(
+        userToken: userToken,
+        service: service,
+        clinic: Get.find<StorageServices>().storage.read('clinicName'));
+  }
+
+  sendNotificationReminder({
+    required String userToken,
+    required String service,
+    required String message,
+  }) async {
+    await DentalClinicAppointmentsApi.sendNotificationReminder(
+        userToken: userToken,
+        service: service,
+        message: message,
         clinic: Get.find<StorageServices>().storage.read('clinicName'));
   }
 }

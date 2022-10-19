@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import '../../../constant/color_class.dart';
 import '../../client_account_screen/view/client_account_view.dart';
 import '../../client_appointments_screen/view/client_appointment_view.dart';
+import '../../client_remarks_screen/view/client_remarks_screen_view.dart';
 import '../../clinic_googlemap_details_screen/view/clinic_googlemaps_details_view.dart';
 import '../../patients_rights_responsibilities_view/view/patient_rights_responsibilities_for_viewing.dart';
 import '../controller/client_home_screen_controller.dart';
@@ -130,32 +131,66 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                ClientHomeScreenDialog
-                                    .showDialogListOfKilometers(
-                                        controller: controller);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(1.w),
-                                decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 227, 234, 241),
-                                    borderRadius: BorderRadius.circular(3),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 4,
-                                          spreadRadius: 1,
-                                          color: Colors.grey),
-                                    ]),
-                                child: Text(
-                                  " ${controller.isSelectedDistance.value.toString()}Km ",
-                                  style: TextStyle(
-                                    letterSpacing: 1.5,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600,
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    ClientHomeScreenDialog
+                                        .showDialogListOfKilometers(
+                                            controller: controller);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 227, 234, 241),
+                                        borderRadius: BorderRadius.circular(3),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              blurRadius: 4,
+                                              spreadRadius: 1,
+                                              color: Colors.grey),
+                                        ]),
+                                    child: Text(
+                                      " ${controller.isSelectedDistance.value.toString()}Km ",
+                                      style: TextStyle(
+                                        letterSpacing: 1.5,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => ClientRemarksView());
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 227, 234, 241),
+                                        borderRadius: BorderRadius.circular(3),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              blurRadius: 4,
+                                              spreadRadius: 1,
+                                              color: Colors.grey),
+                                        ]),
+                                    child: Text(
+                                      "Records",
+                                      style: TextStyle(
+                                        letterSpacing: 1.5,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             InkWell(
                               onTap: () {
@@ -437,28 +472,28 @@ class ClientHomeScreenView extends GetView<ClientHomeViewController> {
                                                                       ),
                                                                       SizedBox(
                                                                         height:
-                                                                            1.h,
+                                                                            3.h,
                                                                       ),
-                                                                      Row(
-                                                                        children: [
-                                                                          Icon(
-                                                                            Icons.person,
-                                                                            size:
-                                                                                14.sp,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                1.w,
-                                                                          ),
-                                                                          Expanded(
-                                                                            child:
-                                                                                Text(
-                                                                              controller.nearestClinic[index].clinicDentistName,
-                                                                              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 10.sp, fontWeight: FontWeight.w500, letterSpacing: .5),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
+                                                                      // Row(
+                                                                      //   children: [
+                                                                      //     Icon(
+                                                                      //       Icons.person,
+                                                                      //       size:
+                                                                      //           14.sp,
+                                                                      //     ),
+                                                                      //     SizedBox(
+                                                                      //       width:
+                                                                      //           1.w,
+                                                                      //     ),
+                                                                      //     Expanded(
+                                                                      //       child:
+                                                                      //           Text(
+                                                                      //         controller.nearestClinic[index].clinicDentistName,
+                                                                      //         style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 10.sp, fontWeight: FontWeight.w500, letterSpacing: .5),
+                                                                      //       ),
+                                                                      //     ),
+                                                                      //   ],
+                                                                      // ),
                                                                       Row(
                                                                         children: [
                                                                           Icon(

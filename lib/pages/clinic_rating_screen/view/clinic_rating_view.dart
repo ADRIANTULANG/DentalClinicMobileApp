@@ -83,15 +83,15 @@ class ClinicRatingView extends GetView<ClinicRatingController> {
                         ),
                       ],
                     ),
-                    Obx(
-                      () => Text(
-                        controller.clinicDentist.value,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 1.5,
-                            fontSize: 11.sp),
-                      ),
-                    ),
+                    // Obx(
+                    //   () => Text(
+                    //     controller.clinicDentist.value,
+                    //     style: TextStyle(
+                    //         fontWeight: FontWeight.w400,
+                    //         letterSpacing: 1.5,
+                    //         fontSize: 11.sp),
+                    //   ),
+                    // ),
                     Obx(
                       () => Text(
                         controller.clinicEmail.value,

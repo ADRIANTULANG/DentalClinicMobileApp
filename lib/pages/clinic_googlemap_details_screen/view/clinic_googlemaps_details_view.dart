@@ -179,17 +179,17 @@ class ClinicGoogleMapsDetailsView
                                                           letterSpacing: 1,
                                                           fontWeight:
                                                               FontWeight.w500)),
-                                                  Text(
-                                                      controller
-                                                          .clientHomeModel!
-                                                          .clinicDentistName,
-                                                      style: TextStyle(
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          fontSize: 9.sp,
-                                                          letterSpacing: 1,
-                                                          fontWeight: FontWeight
-                                                              .normal)),
+                                                  // Text(
+                                                  //     controller
+                                                  //         .clientHomeModel!
+                                                  //         .clinicDentistName,
+                                                  //     style: TextStyle(
+                                                  //         overflow: TextOverflow
+                                                  //             .ellipsis,
+                                                  //         fontSize: 9.sp,
+                                                  //         letterSpacing: 1,
+                                                  //         fontWeight: FontWeight
+                                                  //             .normal)),
                                                   Text(
                                                       double.parse(controller
                                                                   .clientHomeModel!
@@ -238,7 +238,7 @@ class ClinicGoogleMapsDetailsView
                                                           fontWeight: FontWeight
                                                               .normal)),
                                                   SizedBox(
-                                                    height: 1.h,
+                                                    height: 3.h,
                                                   ),
                                                   Row(
                                                     mainAxisAlignment:

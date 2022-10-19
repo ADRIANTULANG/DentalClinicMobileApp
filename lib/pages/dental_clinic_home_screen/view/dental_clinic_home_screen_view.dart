@@ -9,9 +9,12 @@ import 'package:sizer/sizer.dart';
 import '../../../constant/color_class.dart';
 import '../../dental_clinic_account_screen/view/dental_clinic_account_view.dart';
 import '../../dental_clinic_billing_screen/view/dental_clinic_billing_view.dart';
+import '../../dental_clinic_dentist_list/view/dental_clinic_dentist_list_view.dart';
 import '../../dental_clinic_services_list/view/dental_clinic_services_view.dart';
+import '../../dental_clinic_walkin_screen/view/dental_clinic_walkin_screen_view.dart';
 import '../controller/dental_clinic_home_screen_controller.dart';
 import '../dialogs/dental_clinic_home_Screen_dialogs.dart';
+import 'dental_clinic_history_view.dart';
 
 class DentalClinicHomeScreenView
     extends GetView<DentalClinicHomeScreenController> {
@@ -187,13 +190,102 @@ class DentalClinicHomeScreenView
                           ),
                         ),
                         SizedBox(
+                          height: .1.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => DentalClinicWalkInView());
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(1.w),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 227, 234, 241),
+                                    borderRadius: BorderRadius.circular(3),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 1,
+                                          color: Colors.grey),
+                                    ]),
+                                child: Text(
+                                  "Walk-ins",
+                                  style: TextStyle(
+                                    letterSpacing: 1.5,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => DentalClinicHistoryView());
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(1.w),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 227, 234, 241),
+                                    borderRadius: BorderRadius.circular(3),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 1,
+                                          color: Colors.grey),
+                                    ]),
+                                child: Text(
+                                  "History",
+                                  style: TextStyle(
+                                    letterSpacing: 1.5,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => DentalClinicDentistView());
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(1.w),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 227, 234, 241),
+                                    borderRadius: BorderRadius.circular(3),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 1,
+                                          color: Colors.grey),
+                                    ]),
+                                child: Text(
+                                  "Dentist",
+                                  style: TextStyle(
+                                    letterSpacing: 1.5,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
                           height: 2.h,
                         ),
                         Row(
                           children: [
                             InkWell(
                               onTap: () {
-                                controller.testFunction();
+                                // controller.testFunction();
                               },
                               child: Container(
                                 height: 20.h,
@@ -222,25 +314,26 @@ class DentalClinicHomeScreenView
                                           fontSize: 18),
                                     ),
                                   ),
+
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  // Obx(
+                                  //   () => Text(
+                                  //     controller.dentalClinicDentist.value,
+                                  //     style: TextStyle(
+                                  //         fontWeight: FontWeight.w500,
+                                  //         letterSpacing: 1.5,
+                                  //         color: Colors.grey,
+                                  //         fontSize: 12),
+                                  //   ),
+                                  // ),
                                   Obx(
                                     () => Text(
                                       controller.dentalClinicAddress.value,
                                       maxLines: 3,
                                       style: TextStyle(
                                           overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: 1.5,
-                                          color: Colors.grey,
-                                          fontSize: 12),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  Obx(
-                                    () => Text(
-                                      controller.dentalClinicDentist.value,
-                                      style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           letterSpacing: 1.5,
                                           color: Colors.grey,

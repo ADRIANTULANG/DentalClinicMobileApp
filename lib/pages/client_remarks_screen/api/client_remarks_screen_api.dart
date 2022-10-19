@@ -1,29 +1,30 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:dcams/services/storage_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../../configs/endPoints.dart';
-import '../model/dental_clinic_client_remarks_model.dart';
 
-class DentalClinicClientRemarksApi {
+import '../../../configs/endPoints.dart';
+import '../model/client_remarks_model.dart';
+
+class ClientRemarksScreenApi {
   static var client = http.Client();
 //
-  static Future<List<RemarksModel>> getClientRemarks(
-      {required String clientID}) async {
+  static Future<List<ClientRemarksModel>> getRemarks() async {
     try {
       var response = await client.post(
-        Uri.parse('${AppEndpoint.endPointDomain}/get-client-remarks.php'),
+        Uri.parse(
+            '${AppEndpoint.endPointDomain}/get-client-remarks-for-clients.php'),
         body: {
-          "clientID": clientID.toString(),
-          "clinicID":
-              Get.find<StorageServices>().storage.read('clinicId').toString(),
+          "clientID": Get.find<StorageServices>().storage.read('clientId'),
         },
       );
+
       if (jsonDecode(response.body)['message'] == "Success") {
-        return remarksModelFromJson(
+        return clientRemarksModelFromJson(
             jsonEncode(jsonDecode(response.body)['data']));
       } else {
         return [];
@@ -40,7 +41,7 @@ class DentalClinicClientRemarksApi {
     } on SocketException catch (_) {
       print(_);
       Get.snackbar(
-        "Get Client Remarks Error: Socket",
+        "Get Client Remarks  Error: Socket",
         "Oops, something went wrong. Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
@@ -50,7 +51,7 @@ class DentalClinicClientRemarksApi {
     } catch (e) {
       print(e);
       Get.snackbar(
-        "Get Client Remarks Error",
+        "Get Client Remarks  Error",
         "Oops, something went wrong. Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
@@ -60,17 +61,15 @@ class DentalClinicClientRemarksApi {
     }
   }
 
-  static Future<bool> createRemarks(
-      {required String remarks, required String clinicID}) async {
+  static Future updatePermission({
+    required String recordID,
+    required String permission,
+  }) async {
     try {
       var response = await client.post(
-        Uri.parse('${AppEndpoint.endPointDomain}/create-client-remarks.php'),
-        body: {
-          "remarks": remarks.toString(),
-          "clientID": clinicID.toString(),
-          "clinicID":
-              Get.find<StorageServices>().storage.read('clinicId').toString(),
-        },
+        Uri.parse(
+            '${AppEndpoint.endPointDomain}/update-client-record-permission.php'),
+        body: {"recordID": recordID, "permission": permission},
       );
 
       if (jsonDecode(response.body)['message'] == "Success") {
@@ -80,7 +79,7 @@ class DentalClinicClientRemarksApi {
       }
     } on TimeoutException catch (_) {
       Get.snackbar(
-        "Get Add Remarks Error: Timeout",
+        "Update Permissions Error: Timeout",
         "Oops, something went wrong. Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
@@ -90,7 +89,7 @@ class DentalClinicClientRemarksApi {
     } on SocketException catch (_) {
       print(_);
       Get.snackbar(
-        "Get Add Remarks Error: Socket",
+        "Update Permissions  Error: Socket",
         "Oops, something went wrong. Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
@@ -100,7 +99,7 @@ class DentalClinicClientRemarksApi {
     } catch (e) {
       print(e);
       Get.snackbar(
-        "Get Add Remarks Error",
+        "Update Permissions  Error",
         "Oops, something went wrong. Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
@@ -108,15 +107,5 @@ class DentalClinicClientRemarksApi {
       );
       return false;
     }
-  }
-
-  static Future sendNotificationReminder({
-    required String userToken,
-    required String message,
-  }) async {
-    var e2epushnotif = await http.post(
-        Uri.parse('${AppEndpoint.endPointDomain}/push-notification.php'),
-        body: {"fcmtoken": userToken, "title": "Message", "body": "$message"});
-    print("e2e notif: ${e2epushnotif.body}");
   }
 }

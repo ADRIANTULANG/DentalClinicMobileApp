@@ -6,70 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../../configs/endPoints.dart';
-import '../model/dental_clinic_client_remarks_model.dart';
+import '../model/dental_clinic_dentist_list_model.dart';
 
-class DentalClinicClientRemarksApi {
+class DentalClinicDentistApi {
   static var client = http.Client();
 //
-  static Future<List<RemarksModel>> getClientRemarks(
-      {required String clientID}) async {
-    try {
-      var response = await client.post(
-        Uri.parse('${AppEndpoint.endPointDomain}/get-client-remarks.php'),
-        body: {
-          "clientID": clientID.toString(),
-          "clinicID":
-              Get.find<StorageServices>().storage.read('clinicId').toString(),
-        },
-      );
-      if (jsonDecode(response.body)['message'] == "Success") {
-        return remarksModelFromJson(
-            jsonEncode(jsonDecode(response.body)['data']));
-      } else {
-        return [];
-      }
-    } on TimeoutException catch (_) {
-      Get.snackbar(
-        "Get Client Remarks Error: Timeout",
-        "Oops, something went wrong. Please try again later.",
-        colorText: Colors.white,
-        backgroundColor: Colors.lightGreen,
-        snackPosition: SnackPosition.BOTTOM,
-      );
-      return [];
-    } on SocketException catch (_) {
-      print(_);
-      Get.snackbar(
-        "Get Client Remarks Error: Socket",
-        "Oops, something went wrong. Please try again later.",
-        colorText: Colors.white,
-        backgroundColor: Colors.lightGreen,
-        snackPosition: SnackPosition.BOTTOM,
-      );
-      return [];
-    } catch (e) {
-      print(e);
-      Get.snackbar(
-        "Get Client Remarks Error",
-        "Oops, something went wrong. Please try again later.",
-        colorText: Colors.white,
-        backgroundColor: Colors.lightGreen,
-        snackPosition: SnackPosition.BOTTOM,
-      );
-      return [];
-    }
-  }
 
-  static Future<bool> createRemarks(
-      {required String remarks, required String clinicID}) async {
+  static Future createDentist({
+    required String dentist_name,
+    required String dentist_contact,
+    required String dentist_email,
+  }) async {
     try {
       var response = await client.post(
-        Uri.parse('${AppEndpoint.endPointDomain}/create-client-remarks.php'),
+        Uri.parse('${AppEndpoint.endPointDomain}/create-clinic-dentist.php'),
         body: {
-          "remarks": remarks.toString(),
-          "clientID": clinicID.toString(),
-          "clinicID":
+          "dentist_clinic_id":
               Get.find<StorageServices>().storage.read('clinicId').toString(),
+          "dentist_name": dentist_name,
+          "dentist_contact": dentist_contact,
+          "dentist_email": dentist_email,
         },
       );
 
@@ -80,7 +36,7 @@ class DentalClinicClientRemarksApi {
       }
     } on TimeoutException catch (_) {
       Get.snackbar(
-        "Get Add Remarks Error: Timeout",
+        "Create Clinic Dentist Error: Timeout",
         "Oops, something went wrong. Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
@@ -90,7 +46,7 @@ class DentalClinicClientRemarksApi {
     } on SocketException catch (_) {
       print(_);
       Get.snackbar(
-        "Get Add Remarks Error: Socket",
+        "Create Clinic Dentist Error: Socket",
         "Oops, something went wrong. Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
@@ -100,7 +56,7 @@ class DentalClinicClientRemarksApi {
     } catch (e) {
       print(e);
       Get.snackbar(
-        "Get Add Remarks Error",
+        "Create Clinic Dentist Error",
         "Oops, something went wrong. Please try again later.",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
@@ -110,13 +66,100 @@ class DentalClinicClientRemarksApi {
     }
   }
 
-  static Future sendNotificationReminder({
-    required String userToken,
-    required String message,
+  static Future<List<DentistModel>> getDentist() async {
+    try {
+      var response = await client.post(
+        Uri.parse('${AppEndpoint.endPointDomain}/get-clinic-dentist.php'),
+        body: {
+          "clinicID":
+              Get.find<StorageServices>().storage.read('clinicId').toString(),
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        return (dentistModelFromJson(
+            jsonEncode(jsonDecode(response.body)['data'])));
+      } else {
+        return [];
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Get Dentist Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Get Dentist Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Get Dentist Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
+    }
+  }
+
+  static Future updateDentist({
+    required String dentist_id,
   }) async {
-    var e2epushnotif = await http.post(
-        Uri.parse('${AppEndpoint.endPointDomain}/push-notification.php'),
-        body: {"fcmtoken": userToken, "title": "Message", "body": "$message"});
-    print("e2e notif: ${e2epushnotif.body}");
+    try {
+      var response = await client.post(
+        Uri.parse(
+            '${AppEndpoint.endPointDomain}/update-clinic-dentist-status.php'),
+        body: {
+          "dentist_id": dentist_id,
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        return true;
+      } else {
+        return false;
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Update Clinic Dentist Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Update Clinic Dentist Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Update Clinic Dentist Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    }
   }
 }

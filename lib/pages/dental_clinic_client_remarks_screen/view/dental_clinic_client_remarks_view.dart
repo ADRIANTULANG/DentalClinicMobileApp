@@ -15,159 +15,201 @@ class DentalClinicClientRemarksView
   Widget build(BuildContext context) {
     Get.put(DentalClinicClientRemarksController());
     return Scaffold(
-      body: Container(
-        height: 100.h,
-        width: 100.w,
-        padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 7.h),
-        child: Obx(
-          () => controller.isLoading.value == true
-              ? Center(
-                  child: SpinKitThreeBounce(
-                    color: AppColor.mainColors,
-                    size: 100.sp,
-                  ),
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Remarks of",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18.sp,
-                          letterSpacing: 2),
+      body: RefreshIndicator(
+        onRefresh: (() => controller.getRemarks()),
+        child: Container(
+          height: 100.h,
+          width: 100.w,
+          padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 7.h),
+          child: Obx(
+            () => controller.isLoading.value == true
+                ? Center(
+                    child: SpinKitThreeBounce(
+                      color: AppColor.mainColors,
+                      size: 100.sp,
                     ),
-                    SizedBox(
-                      height: .5.h,
-                    ),
-                    Obx(
-                      () => Text(
-                        controller.clientName.value,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20.sp,
-                            letterSpacing: 2),
-                      ),
-                    ),
-                    Expanded(
-                      child: Obx(
-                        () => controller.remarksList.length == 0
-                            ? Center(
-                                child: Text(
-                                  "No Remarks Yet.",
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Records of",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18.sp,
+                                    letterSpacing: 2),
+                              ),
+                              SizedBox(
+                                height: .5.h,
+                              ),
+                              Obx(
+                                () => Text(
+                                  controller.clientName.value,
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20.sp,
                                       letterSpacing: 2),
                                 ),
-                              )
-                            : ListView.builder(
-                                itemCount: controller.remarksList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(top: 1.h),
-                                    child: Container(
-                                      padding: EdgeInsets.only(
-                                          left: 2.w, top: 1.5.h, bottom: 1.5.h),
-                                      width: 100.w,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: AppColor.mainColors),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            controller
-                                                .remarksList[index].clinicName,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16.sp,
-                                                letterSpacing: 1.5),
-                                          ),
-                                          Text(
-                                            controller.remarksList[index]
-                                                .clinicAddress,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12.sp,
-                                                letterSpacing: 1.5),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Dentist:",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 12.sp,
-                                                    letterSpacing: 1.5),
-                                              ),
-                                              SizedBox(
-                                                width: 1.w,
-                                              ),
-                                              Text(
-                                                controller.remarksList[index]
-                                                    .clinicDentistName,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 12.sp,
-                                                    letterSpacing: 1.5),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: .5.h,
-                                          ),
-                                          Text(
-                                            controller
-                                                .remarksList[index].clinicEmail,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 10.sp,
-                                                letterSpacing: 1.5),
-                                          ),
-                                          Text(
-                                            controller.remarksList[index]
-                                                .clinicContactNo,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 10.sp,
-                                                letterSpacing: 1.5),
-                                          ),
-                                          SizedBox(
-                                            height: 2.h,
-                                          ),
-                                          Text(
-                                            controller
-                                                .remarksList[index].remarks,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 11.sp,
-                                                letterSpacing: 1.5),
-                                          ),
-                                          SizedBox(
-                                            height: 2.h,
-                                          ),
-                                          Text(
-                                            DateFormat.yMMMMd().format(
-                                                controller.remarksList[index]
-                                                    .createdAt),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w100,
-                                                fontSize: 8.sp,
-                                                letterSpacing: 1.5),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
                               ),
+                            ],
+                          ),
+                          Obx(
+                            () => controller.isNotifying.value == true
+                                ? CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 6.w,
+                                    child: Center(
+                                        child: CircularProgressIndicator(
+                                      color: AppColor.mainColors,
+                                    )))
+                                : InkWell(
+                                    onTap: () {
+                                      controller.sendNotificationRequest(
+                                          clientName:
+                                              controller.clientName.value);
+                                    },
+                                    child: CircleAvatar(
+                                        backgroundColor: AppColor.mainColors,
+                                        radius: 6.w,
+                                        child: Icon(
+                                          Icons.notifications_active_rounded,
+                                          color: Colors.black,
+                                        ))),
+                          )
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                      Expanded(
+                        child: Obx(
+                          () => controller.remarksList.length == 0
+                              ? Center(
+                                  child: Text(
+                                    "No Remarks Yet.",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 13.sp,
+                                        letterSpacing: 2),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: controller.remarksList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(top: 1.h),
+                                      child: Container(
+                                        padding: EdgeInsets.only(
+                                            left: 2.w,
+                                            top: 1.5.h,
+                                            bottom: 1.5.h),
+                                        width: 100.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: AppColor.mainColors),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              controller.remarksList[index]
+                                                  .clinicName,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16.sp,
+                                                  letterSpacing: 1.5),
+                                            ),
+                                            Text(
+                                              controller.remarksList[index]
+                                                  .clinicAddress,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12.sp,
+                                                  letterSpacing: 1.5),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "Dentist:",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12.sp,
+                                                      letterSpacing: 1.5),
+                                                ),
+                                                SizedBox(
+                                                  width: 1.w,
+                                                ),
+                                                Text(
+                                                  controller.remarksList[index]
+                                                      .clinicDentistName,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12.sp,
+                                                      letterSpacing: 1.5),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: .5.h,
+                                            ),
+                                            Text(
+                                              controller.remarksList[index]
+                                                  .clinicEmail,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 10.sp,
+                                                  letterSpacing: 1.5),
+                                            ),
+                                            Text(
+                                              controller.remarksList[index]
+                                                  .clinicContactNo,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 10.sp,
+                                                  letterSpacing: 1.5),
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Text(
+                                              controller
+                                                  .remarksList[index].remarks,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 11.sp,
+                                                  letterSpacing: 1.5),
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Text(
+                                              DateFormat.yMMMMd().format(
+                                                  controller.remarksList[index]
+                                                      .createdAt),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize: 8.sp,
+                                                  letterSpacing: 1.5),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                        ),
+                      )
+                    ],
+                  ),
+          ),
         ),
       ),
       floatingActionButton: Obx(

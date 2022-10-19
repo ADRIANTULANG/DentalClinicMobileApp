@@ -97,8 +97,6 @@ class StorageServices extends GetxController {
     storage.remove("clinicContactNo");
     storage.remove("clinicStatus");
     storage.remove("subscriptionStatus");
-
-    storage.remove("isShown");
   }
 
   setRightsAndResponsibilitiesShown() {

@@ -228,6 +228,12 @@ class PendingTab extends GetView<DentalClinicHomeScreenController> {
                                       onTap: () {
                                         DentalClinicHomeScreenDialogs
                                             .showDialogForRemarks(
+                                                services: controller
+                                                    .pendingList[index]
+                                                    .resServiceName,
+                                                fcmToken: controller
+                                                    .pendingList[index]
+                                                    .fcmToken,
                                                 resID: controller
                                                     .pendingList[index].resId,
                                                 controller: controller);

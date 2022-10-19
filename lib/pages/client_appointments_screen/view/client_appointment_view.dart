@@ -254,28 +254,28 @@ class ClientAppointmentView extends GetView<ClientAppointmentController> {
                                               ),
                                             ],
                                           ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Dentist: ",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontSize: 12.sp,
-                                                    letterSpacing: 2),
-                                              ),
-                                              Text(
-                                                controller
-                                                    .appointmentList[index]
-                                                    .clinicDentistName,
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontSize: 12.sp,
-                                                    letterSpacing: 1),
-                                              ),
-                                            ],
-                                          ),
+                                          // Row(
+                                          //   children: [
+                                          //     Text(
+                                          //       "Dentist: ",
+                                          //       style: TextStyle(
+                                          //           fontWeight:
+                                          //               FontWeight.normal,
+                                          //           fontSize: 12.sp,
+                                          //           letterSpacing: 2),
+                                          //     ),
+                                          //     Text(
+                                          //       controller
+                                          //           .appointmentList[index]
+                                          //           .clinicDentistName,
+                                          //       style: TextStyle(
+                                          //           fontWeight:
+                                          //               FontWeight.normal,
+                                          //           fontSize: 12.sp,
+                                          //           letterSpacing: 1),
+                                          //     ),
+                                          //   ],
+                                          // ),
                                           Row(
                                             children: [
                                               Text(
