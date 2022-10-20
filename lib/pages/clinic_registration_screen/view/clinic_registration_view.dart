@@ -269,7 +269,7 @@ class ClinicRegistrationView extends GetView<ClinicRegistrationController> {
                 ),
               ),
               SizedBox(
-                height: 3.h,
+                height: 9.h,
               ),
               InkWell(
                 onTap: () {
