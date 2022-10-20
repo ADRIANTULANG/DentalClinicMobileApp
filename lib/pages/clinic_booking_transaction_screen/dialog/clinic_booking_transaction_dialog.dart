@@ -72,7 +72,7 @@ class ClinicBookingTransactionDialog {
                     } else {
                       Get.back();
                       FocusScope.of(context).unfocus();
-                      controller.submit_reservation(context: context);
+                      controller.submit_reservation();
                     }
                   },
                   child: Obx(

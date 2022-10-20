@@ -550,17 +550,14 @@ class ClinicBookingTransactionView
                               )
                             : InkWell(
                                 onTap: () {
-                                  // controller.submit_reservation();
                                   if (controller
                                           .isSelectedPaymentGateway.value !=
                                       "") {
-                                    ClinicBookingTransactionDialog
-                                        .showVerificationPaymentOptions(
-                                            context: context,
-                                            controller: controller,
-                                            paymentType: controller
-                                                .isSelectedPaymentGateway
-                                                .value);
+                                    controller.checkConflict(
+                                        context: context,
+                                        controller: controller,
+                                        paymentType: controller
+                                            .isSelectedPaymentGateway.value);
                                   } else {
                                     Get.snackbar(
                                       "message",

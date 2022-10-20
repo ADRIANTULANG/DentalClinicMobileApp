@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../../clinic_services_list_screen/controller/clinic_services_list_controller.dart';
 import '../../clinic_services_list_screen/model/clinic_services_list_model.dart';
 import '../api/clinic_booking_transaction_api.dart';
+import '../dialog/clinic_booking_transaction_dialog.dart';
 
 class ClinicBookingTransactionController extends GetxController {
   RxString servicesName = "".obs;
@@ -117,7 +118,7 @@ class ClinicBookingTransactionController extends GetxController {
     }
   }
 
-  submit_reservation({required BuildContext context}) async {
+  submit_reservation() async {
     isSubmitingReservation(true);
     for (var i = 0; i < servicesCheckList.length; i++) {
       await ClinicBookingTransactionApi.create_reservation(
@@ -153,5 +154,45 @@ class ClinicBookingTransactionController extends GetxController {
       backgroundColor: AppColor.mainColors,
       snackPosition: SnackPosition.TOP,
     );
+  }
+
+  checkConflict(
+      {required ClinicBookingTransactionController controller,
+      required String paymentType,
+      required BuildContext context}) async {
+    isSubmitingReservation(true);
+    var result = await ClinicBookingTransactionApi.checkIfHasConflictDates(
+      res_schedule: dateSelected.toString(),
+      res_schedule_time: partialselectedHour.value +
+          ":" +
+          partialselectedMinutes.value +
+          " " +
+          partialselectedAmPm.value,
+      res_clinic_id: clinicID.value,
+    );
+    if (result == "No Conflicts") {
+      ClinicBookingTransactionDialog.showVerificationPaymentOptions(
+          context: context,
+          controller: controller,
+          paymentType: controller.isSelectedPaymentGateway.value);
+    } else if (result == "Has Conflicts") {
+      Get.snackbar(
+        "Message",
+        "Oopss.. Conflict schedule. Please other time and date. Thank you",
+        colorText: Colors.white,
+        duration: Duration(seconds: 5),
+        backgroundColor: AppColor.mainColors,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else if (result == false) {
+      Get.snackbar(
+        "Message",
+        "Oopss. Something is wrong. Please try again later",
+        colorText: Colors.white,
+        backgroundColor: AppColor.mainColors,
+        snackPosition: SnackPosition.TOP,
+      );
+    }
+    isSubmitingReservation(false);
   }
 }

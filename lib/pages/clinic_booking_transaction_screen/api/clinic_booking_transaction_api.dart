@@ -76,4 +76,60 @@ class ClinicBookingTransactionApi {
       return false;
     }
   }
+
+  static Future checkIfHasConflictDates({
+    required String res_schedule,
+    required String res_schedule_time,
+    required String res_clinic_id,
+  }) async {
+    try {
+      var response = await client.post(
+        Uri.parse('${AppEndpoint.endPointDomain}/get-count-conflict-dates.php'),
+        body: {
+          "res_schedule": res_schedule.toString(),
+          "res_clinic_id": res_clinic_id.toString(),
+          "res_schedule_time": res_schedule_time.toString(),
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        if (jsonDecode(response.body)['data'][0]['counts'] == "0") {
+          return "No Conflicts";
+        } else {
+          return "Has Conflicts";
+        }
+      } else {
+        return false;
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Get Count Conflict Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Get Count Conflict Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Get Count Conflict Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    }
+  }
 }
