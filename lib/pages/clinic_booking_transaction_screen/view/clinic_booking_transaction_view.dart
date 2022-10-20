@@ -6,7 +6,6 @@ import 'package:sizer/sizer.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../controller/clinic_booking_transaction_controller.dart';
-import '../dialog/clinic_booking_transaction_dialog.dart';
 
 class ClinicBookingTransactionView
     extends GetView<ClinicBookingTransactionController> {

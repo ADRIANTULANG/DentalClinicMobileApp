@@ -217,7 +217,7 @@ class ClinicRegistrationController extends GetxController {
         clinic_lat: clinic_lat.value.toString(),
         clinic_long: clinic_long.value.toString(),
         clinic_image: image!.name,
-        clinic_dentist_name: clinicDentistName.text,
+        clinic_dentist_name: "",
         clinic_email: clinicEmailAdd.text,
         clinic_contact_no: clinicContactno.text);
     uploadImageLogo();

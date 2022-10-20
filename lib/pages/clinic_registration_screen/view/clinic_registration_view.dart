@@ -170,35 +170,35 @@ class ClinicRegistrationView extends GetView<ClinicRegistrationController> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 2.h,
-              ),
-              Text(
-                "Clinic Dentist Name",
-                style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 9.sp,
-                    letterSpacing: 2),
-              ),
-              SizedBox(
-                height: .5.h,
-              ),
-              Container(
-                height: 7.h,
-                width: 100.w,
-                child: TextField(
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12.sp,
-                      letterSpacing: 2),
-                  controller: controller.clinicDentistName,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   height: 2.h,
+              // ),
+              // Text(
+              //   "Clinic Dentist Name",
+              //   style: TextStyle(
+              //       fontWeight: FontWeight.normal,
+              //       fontSize: 9.sp,
+              //       letterSpacing: 2),
+              // ),
+              // SizedBox(
+              //   height: .5.h,
+              // ),
+              // Container(
+              //   height: 7.h,
+              //   width: 100.w,
+              //   child: TextField(
+              //     style: TextStyle(
+              //         fontWeight: FontWeight.normal,
+              //         fontSize: 12.sp,
+              //         letterSpacing: 2),
+              //     controller: controller.clinicDentistName,
+              //     obscureText: false,
+              //     decoration: InputDecoration(
+              //       border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(8)),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 2.h,
               ),
@@ -277,7 +277,7 @@ class ClinicRegistrationView extends GetView<ClinicRegistrationController> {
                       controller.clinicUsername.text.isEmpty ||
                       controller.clinicPassword.text.isEmpty ||
                       controller.clinicAddress.text.isEmpty ||
-                      controller.clinicDentistName.text.isEmpty ||
+                      // controller.clinicDentistName.text.isEmpty ||
                       controller.clinicEmailAdd.text.isEmpty ||
                       controller.clinicContactno.text.isEmpty) {
                     Get.snackbar(
