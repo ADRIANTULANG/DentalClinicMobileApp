@@ -148,26 +148,26 @@ class DentalClinicServicesListView
                                             Container(
                                               child: Row(
                                                 children: [
-                                                  InkWell(
-                                                    onTap: () {
-                                                      DentalClinicServicesListDialog
-                                                          .showDeleteDialogs(
-                                                              controller:
-                                                                  controller,
-                                                              servicesID: controller
-                                                                  .servicesList[
-                                                                      index]
-                                                                  .servicesId);
-                                                    },
-                                                    child: Icon(
-                                                      Icons.delete_forever,
-                                                      size: 20.sp,
-                                                      color: Colors.redAccent,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5.w,
-                                                  ),
+                                                  // InkWell(
+                                                  //   onTap: () {
+                                                  //     DentalClinicServicesListDialog
+                                                  //         .showDeleteDialogs(
+                                                  //             controller:
+                                                  //                 controller,
+                                                  //             servicesID: controller
+                                                  //                 .servicesList[
+                                                  //                     index]
+                                                  //                 .servicesId);
+                                                  //   },
+                                                  //   child: Icon(
+                                                  //     Icons.delete_forever,
+                                                  //     size: 20.sp,
+                                                  //     color: Colors.redAccent,
+                                                  //   ),
+                                                  // ),
+                                                  // SizedBox(
+                                                  //   width: 5.w,
+                                                  // ),
                                                   InkWell(
                                                     onTap: () {
                                                       controller
