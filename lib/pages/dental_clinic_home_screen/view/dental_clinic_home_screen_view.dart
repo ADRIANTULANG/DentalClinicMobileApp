@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constant/color_class.dart';
 import '../../dental_clinic_account_screen/view/dental_clinic_account_view.dart';
-import '../../dental_clinic_billing_screen/view/dental_clinic_billing_view.dart';
 import '../../dental_clinic_dentist_list/view/dental_clinic_dentist_list_view.dart';
 import '../../dental_clinic_services_list/view/dental_clinic_services_view.dart';
 import '../../dental_clinic_walkin_screen/view/dental_clinic_walkin_screen_view.dart';
@@ -105,31 +104,31 @@ class DentalClinicHomeScreenView
                                     : SizedBox(),
                               ),
                               Expanded(child: SizedBox()),
-                              InkWell(
-                                onTap: () {
-                                  Get.to(() => DentalClinicBillingView());
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(1.w),
-                                  decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 227, 234, 241),
-                                      borderRadius: BorderRadius.circular(3),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 4,
-                                            spreadRadius: 1,
-                                            color: Colors.grey),
-                                      ]),
-                                  child: Text(
-                                    "Billings",
-                                    style: TextStyle(
-                                      letterSpacing: 1.5,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // InkWell(
+                              //   onTap: () {
+                              //     Get.to(() => DentalClinicBillingView());
+                              //   },
+                              //   child: Container(
+                              //     padding: EdgeInsets.all(1.w),
+                              //     decoration: BoxDecoration(
+                              //         color: Color.fromARGB(255, 227, 234, 241),
+                              //         borderRadius: BorderRadius.circular(3),
+                              //         boxShadow: [
+                              //           BoxShadow(
+                              //               blurRadius: 4,
+                              //               spreadRadius: 1,
+                              //               color: Colors.grey),
+                              //         ]),
+                              //     child: Text(
+                              //       "Billings",
+                              //       style: TextStyle(
+                              //         letterSpacing: 1.5,
+                              //         fontSize: 12.sp,
+                              //         fontWeight: FontWeight.w600,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               SizedBox(
                                 width: 3.w,
                               ),
